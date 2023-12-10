@@ -26,12 +26,12 @@ const { sendMessage } = require("./controllers/messageController");
 // Start express app
 const app = express();
 app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views")); //node function will create automatically correct path
+app.set("views", path.join(__dirname, "views")); // Node function will create automatically correct path
 
-//Development logging
+// Development logging
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
-//Limit requests from same IP
+// Limit requests from same IP
 const limiter = rateLimit({
   max: 1000,
   windowMs: 60 * 60 * 1000,
@@ -50,30 +50,22 @@ if (process.env.NODE_ENV === "production") {
 
 app.use("/api", limiter);
 
-//Body parser, reading data from body into req.body
-app.use(express.json({ limit: "20mb" })); //middleware for post data. body larger than 10mb will not be accepted
+// Body parser, reading data from body into req.body
+app.use(express.json({ limit: "20mb" })); // Middleware for post data. body larger than 10mb will not be accepted
 
-app.use(express.urlencoded({ extended: true, limit: "10mb" })); //parse form data urlencoded
+app.use(express.urlencoded({ extended: true, limit: "10mb" })); // Parse form data urlencoded
 
-app.use(cookieParser()); //parse data from cookies
+app.use(cookieParser()); // Parse data from cookies
 
-//Data sanitization against NoSQL query injection
-app.use(mongoSanitize()); //will filter out all the dollar signs and double dots
+// Data sanitization against NoSQL query injection
+app.use(mongoSanitize()); // Will filter out all the dollar signs and double dots
 
-//Data sanitization against XSS
-app.use(xss()); //clean user input from malicious html code
+// Data sanitization against XSS
+app.use(xss()); // Clean user input from malicious html code
 
-// app.use(cors()); // Will add a couple of different headers to our response // Access-Control-Allow-Origin: *
-// app.use(
-//   cors({
-//     origin: 'https://www.natours.com',
-//   })
-// );
-// app.options('*', cors()); //hyyp method. like app.get(), app.post(), app.patch()
+app.use(compression()); // Compress all the text that's sent to clients
 
-app.use(compression()); //compress all the text that's sent to clients
-
-//Serving static files (css, etc)
+// Serving static files (css, etc)
 // app.use(express.static(`${__dirname}/public`));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -95,14 +87,13 @@ app.use("/api/v1/landing", landingRouter);
 app.use("/api/v1/projects", projectRouter);
 
 // If we add a middleware here, it'll only be reached if not handled by any of our other routers
-// all() for all the verbs, all the http methods
 app.all("*", (req, res, next) => {
   next(
     new AppError(`No se encuentra ${req.originalUrl} en este servidor`, 404)
   );
 });
 
-//global error handling middleware (use next(error) para llegar aqui)
+// Global error handling middleware (use next(error) to reach it)
 app.use(globalErrorHandler);
 
 // SERVER
