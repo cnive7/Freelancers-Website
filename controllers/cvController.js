@@ -73,9 +73,9 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
   if (!req.files || !req.files.foto) {
     return next();
   }
-  //with memory storage we do not get filename, so we need to set it
-  req.files.foto[0].filename = `user-${req.user._id}-${Date.now()}.jpeg`; //So we can use it in the updateMe() route handler
-  //req.file.buffer from this: const multerStorage = multer.memoryStorage();
+  // With memory storage we do not get filename, so we need to set it
+  req.files.foto[0].filename = `user-${req.user._id}-${Date.now()}.jpeg`; // So we can use it in the updateMe() route handler
+  // req.file.buffer from this: const multerStorage = multer.memoryStorage();
   await sharp(req.files.foto[0].buffer)
     .resize(500, 500, {})
     .toFormat("jpeg")
