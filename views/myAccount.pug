@@ -1,0 +1,15 @@
+extends base
+
+block content
+  section.section-mi-cuenta.section-container
+    if user.role === 'admin'
+      <script>location.assign("/freelancers");</script>
+    if cv
+      header
+        h2.heading-secondary(style="text-align: center") Has completado tu perfil, a continuación podés actualizarlo.
+      .separator
+      include cvUpdateForm
+    if !cv
+      <script>location.assign("/completar-perfil");</script>
+  
+    

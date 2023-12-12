@@ -1,0 +1,181 @@
+extends base
+
+block content
+  section.section-hero
+    include _header
+    .hero.section-container
+      .hero-text-box
+        p.hero-title-small= landing.hero.helperText
+        h2.hero-title-medium= landing.hero.title1
+        h1.hero-title-big= landing.hero.title2
+        a.btn.btn-hero(href=`${user ? '/completar-perfil' : '/registrarse'}`)= landing.hero.buttonText
+      .hero-img-box
+        picture
+          source(srcset="img/sections/hero/hero-img-mobile.webp")
+          img(src="img/sections/hero/hero-img-mobile.png", alt="personas felices")
+  section#como-funciona.section-como-funciona.section-container
+    header
+      h1(class="header__heading-primary") ¿Cómo funciona?
+      h2.helper-text
+        | 3 pasos fáciles para convertirte en un Amerilancer
+    .steps
+      .step
+        div(class="step__icon-container")
+          img.icon-landing(src=`${landing.howItWorks.step1.img}`, alt="icono lapiz")
+        h3(class="step__title")= landing.howItWorks.step1.title
+        ul(class="step__list")
+          if landing.howItWorks.step1.item1
+            li(class="step__item")= landing.howItWorks.step1.item1
+          if landing.howItWorks.step1.item2
+            li(class="step__item")= landing.howItWorks.step1.item2
+          if landing.howItWorks.step1.item3
+            li(class="step__item")= landing.howItWorks.step1.item3
+      .step
+        div(class="step__icon-container")
+          img.icon-landing(src=`${landing.howItWorks.step2.img}`, alt="icono lupa")
+        h3(class="step__title")= landing.howItWorks.step2.title
+        ul(class="step__list")
+          if landing.howItWorks.step2.item1
+            li(class="step__item")= landing.howItWorks.step2.item1
+          if landing.howItWorks.step2.item2
+            li(class="step__item")= landing.howItWorks.step2.item2
+          if landing.howItWorks.step2.item3
+            li(class="step__item")= landing.howItWorks.step2.item3
+      .step
+        div(class="step__icon-container")
+          img.icon-landing(src=`${landing.howItWorks.step3.img}`, alt="icono apreton de manos")
+        h3(class="step__title")= landing.howItWorks.step3.title
+        ul(class="step__list")
+          if landing.howItWorks.step3.item1
+            li(class="step__item")= landing.howItWorks.step3.item1
+          if landing.howItWorks.step3.item2
+            li(class="step__item")= landing.howItWorks.step3.item2
+          if landing.howItWorks.step3.item3
+            li(class="step__item")= landing.howItWorks.step3.item3
+    .extra-content
+      p(class="step__footer-text")
+        | Tienes más posibilidades de conseguir proyectos si completas todos los
+        | campos de tu perfil.
+      p(class="step__footer-text-secondary")
+        | Te invitamos a unirte a nuestra comunidad.
+      .btn-cta-container
+        a.btn.btn-primary.btn-cta--section(href=`${user ? '/completar-perfil' : '/registrarse'}`)
+          .btn-img-container
+            span CREA TU PERFIL
+            img.btn-img(src="img/icons/ui/arrow-right-bold.svg", alt="icono del botón")
+  section#beneficios.section-beneficios.section-container
+    header
+      h1(class="header__heading-primary") Beneficios
+    .beneficios
+      .beneficios-img-box
+        img(src="img/sections/beneficios.jpg", alt="persona feliz con los beneficios de amerilancers")
+      .beneficios-text-box
+        .beneficio
+          div(class="beneficio__icon-container")
+            img.icon-landing(src=`${landing.benefits.benefit1.img}`, alt="icono lapiz")
+          div(class="beneficio__title")= landing.benefits.benefit1.title
+          div(class="beneficio__description")= landing.benefits.benefit1.desc
+        .beneficio
+          div(class="beneficio__icon-container")
+            img.icon-landing(src=`${landing.benefits.benefit2.img}`, alt="icono idiomas")
+          div(class="beneficio__title")= landing.benefits.benefit2.title
+          div(class="beneficio__description")= landing.benefits.benefit2.desc
+        .beneficio
+          div(class="beneficio__icon-container")
+            img.icon-landing(src=`${landing.benefits.benefit3.img}`, alt="icono cara feliz")
+          div(class="beneficio__title")= landing.benefits.benefit3.title
+          div(class="beneficio__description")= landing.benefits.benefit3.desc
+        .beneficio
+          div(class="beneficio__icon-container")
+            img.icon-landing(src=`${landing.benefits.benefit4.img}`, alt="icono dinero")
+          div(class="beneficio__title")= landing.benefits.benefit4.title
+          div(class="beneficio__description")= landing.benefits.benefit4.desc
+  section#nosotros.section-nosotros.section-container
+    header
+      h1.heading-secondary= landing.aboutUs.title
+    .section-content
+      p.body-text= landing.aboutUs.paragraph1
+      p.body-text= landing.aboutUs.paragraph2
+  section#testimonios.section-testimonios
+    header.section-container
+      h2(class="header__heading-primary") Testimonios
+    .testimonios
+      // Swiper
+      .swiper.mySwiper
+        .swiper-wrapper
+          each testimonial in landing.testimonials
+            .swiper-slide
+              figure.testimonio
+                img(class="testimonio__img", src=`${testimonial.img}`, alt="autor del testimonio")
+                blockquote(class="testimonio__text")= `${testimonial.text}`
+                p(class="testimonio__author") &mdash; #{testimonial.author}
+                p(class="testimonio__work")= testimonial.work
+                p(class="testimonio__location")= testimonial.location
+        .swiper-button-next
+        .swiper-button-prev
+        .swiper-pagination
+      // Swiper JS
+      script(src="/js/swiper-bundle.min.js")
+      // Initialize Swiper
+      script.
+        var swiper = new Swiper(".mySwiper", {
+        pagination: {
+        el: ".swiper-pagination",
+        },
+        //- autoplay: {
+        //-   delay: 3500,
+        //-   disableOnInteraction: false,
+        //- },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        });
+      // End Swiper
+    .btn-cta-container
+      a.btn.btn-primary.btn-cta--section(href=`${user ? '/completar-perfil' : '/registrarse'}`)
+        .btn-img-container
+          span CREA TU PERFIL
+          img.btn-img(src="img/icons/ui/arrow-right-bold.svg", alt="icono del botón")
+  section#faq.section-faq.section-container
+    header
+      h2(class="header__heading-primary") Preguntas frecuentes
+    each faqItem in landing.faq
+      details
+        summary= faqItem.question
+        div= faqItem.answer
+  section#contacto.section-formulario.section-container
+    header
+      h1(class="header__heading-primary") Quieres saber más de nosotros?
+      h2(class="header__heading-secondary")
+        | Si tienes dudas, comentarios, o simplemente nos quieres saludar hazlo
+        | por medio de la siguiente forma.
+    .contact-container
+      .photo
+        img(src="img/sections/contact.jpg", alt="personas felices dando la bienvenida")
+      form#form--contact.form.form--contact
+        div(class="form__groups")
+          div(class="form__group")
+            label(for="nombre", class="form__label") Nombre
+            input#nombre(type="text", name="nombre", class="form__input", required)
+          div(class="form__group")
+            label(for="apellido", class="form__label") Apellido
+            input#apellido(type="text", name="apellido", class="form__input")
+          div(class="form__group")
+            label(for="email", class="form__label") E-mail
+            input#email(type="email", name="email", class="form__input", required)
+          div(class="form__group")
+            label(for="mensaje", class="form__label") Mensaje
+            textarea#mensaje(name="mensaje", class="form__input form__input__textarea")
+        button.btn.btn-primary(type="submit") Enviar
+  include components/hotjar
+  script.
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/633dee2654f06e12d898a12c/1gekuki2f';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();

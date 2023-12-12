@@ -1,0 +1,139 @@
+form(class=`form form--cv__create`)
+  div(class="form__group form__group--photo")
+    label#fotoBtn(for="foto", class="btn btn-primary btn-img-container")
+      span CARGAR FOTO
+      img(src="/img/icons/ui/upload-simple-bold.svg")
+    input#foto(type="file", accept="image/*", class="form__upload", name="foto")
+  .separator
+  .form__3-cols-container
+    div(class="form__group")
+      .form__group-label-container
+        label(for="profesion", class="form__label") Profesión
+        span.required *
+      input#profesion(type="text", class="form__input", name="profesion", required)
+    div(class="form__group")
+      .form__group-label-container
+        label(for="edad", class="form__label") Edad
+        span.required *
+      input#edad(type="number", class="form__input", name="edad", required)
+    div(class="form__group")
+      label(for="telefono", class="form__label") Teléfono
+      input#telefono(type="tel", class="form__input", name="telefono")
+  .form__3-cols-container
+    div(class="form__group")
+      .form__group-label-container
+        label(for="ciudad", class="form__label") Ciudad
+        span.required *
+      input#ciudad(type="text", class="form__input", name="ciudad", required)
+    div(class="form__group")
+      .form__group-label-container
+        label(for="provincia", class="form__label") Provincia
+        span.required *
+      input#provincia(type="text", class="form__input", name="provincia", required)
+    div(class="form__group")
+      .form__group-label-container
+        label(for="pais", class="form__label") País
+        span.required *
+      input#pais(type="text", class="form__input", name="pais", required)
+  .separator
+  div(class="form__group")
+    label#curriculumBtn(for="curriculum", class="btn btn-primary btn-img-container")
+      span CARGAR CURRICULUM
+      img(src="/img/icons/ui/upload-simple-bold.svg")
+    input#curriculum(type="file", accept="document/*", class="form__upload", name="curriculum")
+  .separator
+  div(class="form__group")
+    label(for="sobreMi", class="form__label") Sobre mí
+    textarea#sobreMi(class="form__input form__input__textarea")
+  .separator
+  div(class="form__group form__group--checkbox form__group--ingles")
+    label(for="ingles", class="form__label form__label--ingles") Inglés
+    input#ingles(type="checkbox", class="form__input form__input--ingles", name="ingles")
+  .separator
+  .form__heading
+    h3 Programas que sabes usar
+  #actionsProgramaContainer.actions-container
+    button#addPrograma.btn.btn-primary.btn-img-container
+      | Añadir programa
+      img(src="/img/icons/ui/plus-bold.svg")
+  .separator
+  .form__heading
+    h3 Contanos en qué otras áreas tenes experiencia
+    p.text-secondary.text-secondary--experiencia (ej. Desarrollo web, Diseño 3d, etc)
+
+  #actionsExperienciaContainer.actions-container
+    button#addExperiencia.btn.btn-primary.btn-img-container
+      | Añadir experiencia
+      img(src="/img/icons/ui/plus-bold.svg")
+  .separator
+  .form__3-cols-container
+    div(class="form__group")
+      label(for="tarifaPorHora", class="form__label") Tarifa por hora
+      input#tarifaPorHora(type="text", class="form__input", name="tarifaPorHora")
+    div(class="form__group")
+      .form__group-label-container
+        label(for="horasDiarias", class="form__label") Horas diarias disponibles
+        span.required *
+      input#horasDiarias(type="number", class="form__input", name="horasDiarias", required)
+    div(class="form__group")
+      .form__group-label-container
+        label(for="horasSemanales", class="form__label") Horas semanales disponibles
+        span.required *
+      input#horasSemanales(type="number", class="form__input", name="horasSemanales", required)
+  div(class="form__group")
+    label(for="sistemaDeCobro", class="form__label form__label--sistema-de-cobro") Sistema de cobro
+    .form__checkbox-container
+      .form__group--checkbox.form__sistema-de-cobro
+        label(for="paypal") Paypal
+        input#paypal(type="checkbox", value="paypal", name="sistemaDeCobroPaypal")
+      .form__group--checkbox.form__sistema-de-cobro
+        label(for="westernUnion") Western Union
+        input#westernUnion(type="checkbox", value="westernUnion", name="sistemaDeCobroWesternUnion")
+      .form__group--checkbox.form__sistema-de-cobro
+        label(for="transferencia") Transferencia
+        input#transferencia(type="checkbox", value="paypal", name="sistemaDeCobroTransferencia")
+  div(class="form__group")
+    label(for="otroSistemaDeCobro", class="form__label") Otro sistema de cobro
+    input#otroSistemaDeCobro(type="text", class="form__input", name="otroSistemaDeCobro")
+  .separator
+  .form__heading
+    h3 Tus redes sociales
+  .form__3-cols-container
+    div(class="form__group")
+      label(for="facebook", class="form__label") Facebook
+      input#facebook(type="text", class="form__input", name="facebook", placeholder="https://www.facebook.com/...")
+    div(class="form__group")
+      label(for="instagram", class="form__label") Instagram
+      input#instagram(type="text", class="form__input", name="instagram", placeholder="https://www.instagram.com/...")
+    div(class="form__group")
+      label(for="linkedin", class="form__label") Linkedin
+      input#linkedin(type="text", class="form__input", name="linkedin", placeholder="https://www.linkedin.com/...")
+  .form__3-cols-container
+    div(class="form__group")
+      label(for="behance", class="form__label") Behance
+      input#behance(type="text", class="form__input", name="behance", placeholder="https://www.behance.com/...")
+    div(class="form__group")
+      label(for="youtube", class="form__label") Youtube
+      input#youtube(type="text", class="form__input", name="youtube", placeholder="https://www.youtube.com/...")
+    div(class="form__group")
+      label(for="vimeo", class="form__label") Vimeo
+      input#vimeo(type="text", class="form__input", name="vimeo", placeholder="https://www.vimeo.com/...")
+  .separator
+  div(class="form__group")
+    label(for="portafolioEnLinea", class="form__label") Portafolio en línea
+    input#portafolioEnLinea(type="text", class="form__input", name="portafolioEnLinea")
+  .form__heading 
+    p.text-primary ¿No tenes portafolio en línea? Aqui podes subir tu portafolio.
+  div(class="form__group")
+    label#portafolioBtn(for="portafolio", class="btn btn-primary btn-img-container")
+      span CARGAR PORTAFOLIO
+      img(src="/img/icons/ui/upload-simple-bold.svg")
+    input#portafolio(type="file", name="portafolio" multiple)
+  .form__heading
+    p.text-secondary Tamaño máximo 10MB
+    p.text-secondary Podes subir imágenes, videos, documentos de tu portafolio (jpg, png, gif, pdf, doc word, mp4, PowerPoint, etc.)
+  .separator
+  button#submitBtn.btn.btn-primary.btn-img-container(type="submit")
+    span Enviar
+    img(src="/img/icons/ui/arrow-right-bold.svg")
+include components/hotjar

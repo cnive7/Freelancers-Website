@@ -1,0 +1,209 @@
+extends base
+
+mixin testimonial(img, text, author, work, location, counter)
+  .testimonial#testimonial
+    .form__heading
+      p.text-secondary TESTIMONIO #{counter}
+    .form__group
+      button#deleteTestimonial.btn.btn-primary.btn-img(onclick="this.closest('#testimonial').remove()")
+          img(src="/img/icons/ui/trash-bold.svg")
+      div(class="form__group")
+        label(for=`testimonialImg${counter}`, class="form__label") Foto
+        input(id=`testimonialImg${counter}` type="text", class="form__input testimonial--img", name=`testimonialImg${counter}`, value=`${img}`)
+      div(class="form__group")
+        label(for=`testimonialText${counter}`, class="form__label") Cita
+        textarea(id=`testimonialText${counter}` class="form__input form__input__textarea testimonial--text", name=`testimonialText${counter}`)= text
+      .form__3-cols-container
+        div(class="form__group")
+          label(for=`testimonialAuthor${counter}`, class="form__label") Autor
+          input(id=`testimonialAuthor${counter}` type="text", class="form__input testimonial--author", name=`testimonialAuthor${counter}`, value=`${author}`)
+        div(class="form__group")
+          label(for=`testimonialWork${counter}`, class="form__label") Profesión
+          input(id=`testimonialWork${counter}` type="text", class="form__input testimonial--work", name=`testimonialWork${counter}`, value=`${work}`)
+        div(class="form__group")
+          label(for=`testimonialLocation${counter}`, class="form__label") Ubicación
+          input(id=`testimonialLocation${counter}` type="text", class="form__input testimonial--location", name=`testimonialLocation${counter}`, value=`${location}`)
+mixin faq(question, answer, counter)
+  .faq#faq
+    .form__heading
+      p.text-secondary Pregunta #{counter}
+    button#deleteTestimonial.btn.btn-primary.btn-img(onclick="this.closest('#faq').remove()")
+          img(src="/img/icons/ui/trash-bold.svg")
+    div(class="form__group")
+        label(for=`faqQuestion${counter}`, class="form__label") Pregunta
+        input(id=`faqQuestion${counter}` type="text", class="form__input faq--question", name=`faqQuestion${counter}`, value=`${question}`)
+    div(class="form__group")
+        label(for=`faqAnswer${counter}`, class="form__label") Respuesta
+        textarea(id=`faqAnswer${counter}` class="form__input form__input__textarea faq--answer", name=`faqAnswer${counter}`)= answer
+
+block content
+  - let counterTestimonial = 0;
+  - let counterFAQ = 0;
+  link(rel="stylesheet", href="/css/form.css")
+  link(rel="stylesheet", href="/css/editLanding.css")
+  section.section-edit-landing.section-container
+    header
+      h2.heading-secondary Editar landing page
+    .separator
+    .landing-config
+      form(class=`form form--landing-update`)
+        .form__heading
+          h3 Sección Hero
+        div(class="form__group")
+          label(for="heroHelperText", class="form__label") Texto chico
+          input#heroHelperText(type="text", class="form__input", name="heroHelperText", value=`${landing.hero.helperText}`)
+        div(class="form__group")
+          label(for="heroTitle1", class="form__label") Título 1
+          input#heroTitle1(type="text", class="form__input", name="heroTitle1", value=`${landing.hero.title1}`)
+        div(class="form__group")
+          label(for="heroTitle2", class="form__label") Título 2
+          input#heroTitle2(type="text", class="form__input", name="heroTitle2", value=`${landing.hero.title2}`)
+        div(class="form__group")
+          label(for="heroButtonText", class="form__label") Texto botón
+          input#heroButtonText(type="text", class="form__input", name="heroButtonText", value=`${landing.hero.buttonText}`)
+        .separator
+        .form__heading
+          h3 Sección Sobre Nosotros
+        div(class="form__group")
+            label(for="aboutUsTitle", class="form__label") Título
+            input#aboutUsTitle(type="text", class="form__input", name="aboutUsTitle", value=`${landing.aboutUs.title}`)
+        div(class="form__group")
+            label(for="aboutUsParagraph1", class="form__label") Párrafo 1
+            textarea#aboutUsParagraph1(class="form__input form__input__textarea", name="aboutUsParagraph1")= landing.aboutUs.paragraph1
+        div(class="form__group")
+            label(for="aboutUsParagraph2", class="form__label") Párrafo 2
+            textarea#aboutUsParagraph2(class="form__input form__input__textarea", name="aboutUsParagraph2")= landing.aboutUs.paragraph2
+        .separator
+        .form__heading
+          h3 Sección Como funciona
+        .form__heading
+          p.text-secondary PASO 1
+        div(class="form__group")
+          label(for="step1Img", class="form__label") Imagen
+          input#step1Img(type="text", class="form__input", name="step1Img", value=`${landing.howItWorks.step1.img}`)
+        div(class="form__group")
+          label(for="step1Title", class="form__label") Título
+          input#step1Title(type="text", class="form__input", name="step1Title", value=`${landing.howItWorks.step1.title}`)
+        .form__3-cols-container
+          div(class="form__group")
+            label(for="step1item1", class="form__label") Item 1
+            input#step1item1(type="text", class="form__input", name="step1item1", value=`${landing.howItWorks.step1.item1}`)
+          div(class="form__group")
+            label(for="step1item2", class="form__label") Item 2
+            input#step1item2(type="text", class="form__input", name="step1item2", value=`${landing.howItWorks.step1.item2}`)
+          div(class="form__group")
+            label(for="step1item3", class="form__label") Item 3
+            input#step1item3(type="text", class="form__input", name="step1item3", value=`${landing.howItWorks.step1.item3}`)
+        .form__heading
+          p.text-secondary PASO 2
+        div(class="form__group")
+          label(for="step2Img", class="form__label") Imagen
+          input#step2Img(type="text", class="form__input", name="step2Img", value=`${landing.howItWorks.step2.img}`)
+        div(class="form__group")
+          label(for="step2Title", class="form__label") Título
+          input#step2Title(type="text", class="form__input", name="step2Title", value=`${landing.howItWorks.step2.title}`)
+        .form__3-cols-container
+          div(class="form__group")
+            label(for="step2item1", class="form__label") Item 1
+            input#step2item1(type="text", class="form__input", name="step2item1", value=`${landing.howItWorks.step2.item1}`)
+          div(class="form__group")
+            label(for="step2item2", class="form__label") Item 2
+            input#step2item2(type="text", class="form__input", name="step2item2", value=`${landing.howItWorks.step2.item2}`)
+          div(class="form__group")
+            label(for="step2item3", class="form__label") Item 3
+            input#step2item3(type="text", class="form__input", name="step2item3", value=`${landing.howItWorks.step2.item3}`)
+        .form__heading
+          p.text-secondary PASO 3
+        div(class="form__group")
+          label(for="step3Img", class="form__label") Imagen
+          input#step3Img(type="text", class="form__input", name="step3Img", value=`${landing.howItWorks.step3.img}`)
+        div(class="form__group")
+          label(for="step3Title", class="form__label") Título
+          input#step3Title(type="text", class="form__input", name="step3Title", value=`${landing.howItWorks.step3.title}`)
+        .form__3-cols-container
+          div(class="form__group")
+            label(for="step3item1", class="form__label") Item 1
+            input#step3item1(type="text", class="form__input", name="step3item1", value=`${landing.howItWorks.step3.item1}`)
+          div(class="form__group")
+            label(for="step3item2", class="form__label") Item 2
+            input#step3item2(type="text", class="form__input", name="step3item2", value=`${landing.howItWorks.step3.item2}`)
+          div(class="form__group")
+            label(for="step3item3", class="form__label") Item 3
+            input#step3item3(type="text", class="form__input", name="step3item3", value=`${landing.howItWorks.step3.item3}`)
+        .separator
+        .form__heading
+          h3 Sección Beneficios
+        .form__heading
+          p.text-secondary BENEFICIO 1
+        div(class="form__group")
+            label(for="benefit1img", class="form__label") Imagen
+            input#benefit1img(type="text", class="form__input", name="benefit1img", value=`${landing.benefits.benefit1.img}`)
+        div(class="form__group")
+            label(for="benefit1title", class="form__label") Título
+            input#benefit1title(type="text", class="form__input", name="benefit1title", value=`${landing.benefits.benefit1.title}`)
+        div(class="form__group")
+            label(for="benefit1desc", class="form__label") Descripción
+            textarea#benefit1desc(class="form__input form__input__textarea", name="benefit1desc")= landing.benefits.benefit1.desc
+        .form__heading
+          p.text-secondary BENEFICIO 2
+        div(class="form__group")
+            label(for="benefit2img", class="form__label") Imagen
+            input#benefit2img(type="text", class="form__input", name="benefit2img", value=`${landing.benefits.benefit2.img}`)
+        div(class="form__group")
+            label(for="benefit2title", class="form__label") Título
+            input#benefit2title(type="text", class="form__input", name="benefit2title", value=`${landing.benefits.benefit2.title}`)
+        div(class="form__group")
+            label(for="benefit2desc", class="form__label") Descripción
+            textarea#benefit2desc(class="form__input form__input__textarea", name="benefit2desc")= landing.benefits.benefit2.desc
+        .form__heading
+          p.text-secondary BENEFICIO 3
+        div(class="form__group")
+            label(for="benefit3img", class="form__label") Imagen
+            input#benefit3img(type="text", class="form__input", name="benefit3img", value=`${landing.benefits.benefit3.img}`)
+        div(class="form__group")
+            label(for="benefit3title", class="form__label") Título
+            input#benefit3title(type="text", class="form__input", name="benefit3title", value=`${landing.benefits.benefit3.title}`)
+        div(class="form__group")
+            label(for="benefit3desc", class="form__label") Descripción
+            textarea#benefit3desc(class="form__input form__input__textarea", name="benefit3desc")= landing.benefits.benefit3.desc
+        .form__heading
+          p.text-secondary BENEFICIO 4
+        div(class="form__group")
+            label(for="benefit4img", class="form__label") Imagen
+            input#benefit4img(type="text", class="form__input", name="benefit4img", value=`${landing.benefits.benefit4.img}`)
+        div(class="form__group")
+            label(for="benefit4title", class="form__label") Título
+            input#benefit4title(type="text", class="form__input", name="benefit4title", value=`${landing.benefits.benefit4.title}`)
+        div(class="form__group")
+            label(for="benefit4desc", class="form__label") Descripción
+            textarea#benefit4desc(class="form__input form__input__textarea", name="benefit4desc")= landing.benefits.benefit4.desc
+        .separator
+        .form__heading
+          h3 Sección Testimonios
+
+        each testimonial in landing.testimonials
+          - counterTestimonial++
+          +testimonial(testimonial.img, testimonial.text, testimonial.author, testimonial.work, testimonial.location, counterTestimonial)
+        
+        #actionsTestimonialContainer.actions-container
+          button#addTestimonial.btn.btn-primary.btn-img-container
+            span Añadir Testimonio
+            img(src="/img/icons/ui/plus-bold.svg")
+
+        .separator
+        .form__heading
+          h3 Sección Preguntas frecuentes
+
+        each faq in landing.faq
+          - counterFAQ++
+          +faq(faq.question, faq.answer, counterFAQ)
+
+        #actionsFaqContainer.actions-container
+          button#addFaq.btn.btn-primary.btn-img-container
+            span Añadir Pregunta
+            img(src="/img/icons/ui/plus-bold.svg")
+        .separator
+
+        button#submitBtn.btn.btn-primary.btn-img-container(type="submit")
+          span Actualizar
+          img(src="/img/icons/ui/arrow-right-bold.svg")

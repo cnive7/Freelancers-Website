@@ -1,0 +1,21 @@
+extends base
+
+block content
+  link(rel="stylesheet", href="/css/groups.css")
+  link(rel="stylesheet", href="/css/adminActions.css")
+  section.section-groups.section-container
+    .actions
+            button#groupsEditBtn
+              img(src="/img/icons/ui/admin/pencil--white.svg")
+    header
+      h2.heading-secondary Grupos de freelancers selectos
+    .groups
+      each group in groups
+        a.group__link(href=`/group/${group._id}`)
+          .group
+            .group__img-box
+              img(src="/img/icons/ui/admin/users-three.svg")
+            .group__info-box
+              .group__name= group.name
+              .group__quantity= `${group.users.length} freelancers`
+

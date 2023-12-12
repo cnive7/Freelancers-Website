@@ -1,0 +1,103 @@
+header.header
+  a.logo-container(href="/")
+    img#logo.logo(src="/img/logo/logo_light.png", alt="amerilancers logo")
+  nav.main-nav
+    ul.main-nav-list.main-nav-list--primary
+      li
+        if home
+          a.main-nav-link(href="#como-funciona") Como funciona
+        else 
+          a.main-nav-link(href="/#como-funciona") Como funciona
+      li
+        if home
+          a.main-nav-link(href="#beneficios") Beneficios
+        else
+          a.main-nav-link(href="/#beneficios") Beneficios
+      li
+        if home
+          a.main-nav-link(href="#nosotros") Nosotros
+        else
+          a.main-nav-link(href="/#nosotros") Nosotros
+      li
+        a.main-nav-link(href="/proyectos") Proyectos
+      li
+        if home
+          a.main-nav-link(href="#testimonios") Testimonios
+        else
+          a.main-nav-link(href="/#testimonios") Testimonios
+      li
+        if home
+          a.main-nav-link(href="#faq") FAQ
+        else
+          a.main-nav-link(href="/#faq") FAQ
+      li
+        if home
+          a.main-nav-link(href="#contacto") Contacto
+        else
+          a.main-nav-link(href="/#contacto") Contacto
+
+      if user
+        li.link-mobile
+          a.main-nav-link.btn.btn-secondary.link-mobile(href=`${user ? '/mi-cuenta' : '/login'}`)
+            .btn-img-container
+              span MI CUENTA
+              img.btn-img(src="/img/icons/ui/user-bold.svg", alt="icono del botón")
+        li.link-mobile
+          a#logoutBtn.main-nav-link.btn.btn-primary.link-mobile(href="#")
+            .btn-img-container
+              span CERRAR SESIÓN
+              img.btn-img(src="/img/icons/ui/sign-out-bold.svg", alt="icono del botón")
+      else
+        li.link-mobile
+          a.main-nav-link.btn.btn-primary.link-mobile(href=`${user ? '/mi-cuenta' : '/login'}`)
+            .btn-img-container
+              span INICIAR SESIÓN
+              img.btn-img(src="/img/icons/ui/sign-in-bold.svg", alt="icono del botón")
+        li.link-mobile
+          a.main-nav-link.btn.btn-secondary.link-mobile(href=`/registrarse`)
+            .btn-img-container
+              span REGISTRARSE
+              img.btn-img(src="/img/icons/ui/hand-pointing-bold.svg", alt="icono del botón")
+  nav.nav-actions
+    ul.main-nav-list.main-nav-list--dropdown(class=`${home ? 'home' : 'sites'}`)
+      if user
+        li
+          label(for="touch", class="touch__label")
+            a.main-nav-link.btn-icon-container
+              img.user-img(src=`/img/users/${user.photo}`)
+              span.span-messages.span-messages--account= `${user.name}`
+                if user.hasUnreadMessages && home
+                  .unread
+                    img(src="/img/icons/ui/number-circle-one-bold.svg")
+          input#touch(type="checkbox")
+          ul.dropdown
+            li
+              a.dropdown--link(href="/mi-cuenta")
+                img(src=`/img/icons/ui/user${home ? '-black' : ''}.svg`, class="icon-file").dropdown--icon
+                span.span-messages.span-messages--mi-perfil Mi perfil
+                  if user.hasUnreadMessages && home
+                    .unread
+                      img(src="/img/icons/ui/number-circle-one-bold.svg")
+            li
+              a#logoutBtn.dropdown--link
+                img(src=`/img/icons/ui/sign-out${home ? '-black': ''}.svg`, class="icon-file").dropdown--icon
+                span Cerrar sesión
+      else
+         li
+          label(for="touch", class="touch__label")
+            a.main-nav-link.btn-icon-container
+              img.user-img(src=`/img/users/default.jpg`)
+              span= `Mi cuenta`
+          input#touch(type="checkbox")
+          ul.dropdown
+            li
+              a.dropdown--link(href="/login")
+                img(src=`/img/icons/ui/sign-in${home ? '-black' : ''}.svg`, class="icon-file").dropdown--icon
+                span Iniciar sesión
+            li
+              a.dropdown--link(href="/registrarse")
+                img(src=`/img/icons/ui/hand-pointing${home ? '-black' : ''}.svg`, class="icon-file").dropdown--icon
+                span Registrarme
+  button.btn-mobile-nav
+    img#open-nav.icon-mobile-nav(src="/img/icons/light/list-bold.svg", alt="menu icon", name="menu-outline")
+    img#close-nav.icon-mobile-nav(src="/img/icons/dark/x-bold.svg", alt="menu icon", name="close-outline")

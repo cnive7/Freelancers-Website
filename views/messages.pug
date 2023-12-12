@@ -1,0 +1,28 @@
+extends base
+
+block content
+  link(rel="stylesheet", href="/css/messages.css")
+  link(rel="stylesheet", href="/css/adminActions.css")
+  section.section-messages.section-container
+    .actions
+            button#messagesEditBtn
+              img(src="/img/icons/ui/admin/pencil--white.svg")
+    header
+      h2.heading-secondary Todos los mensajes
+    .messages
+      each message in messages
+        - let userToShow = message.message.user_sender[0];
+        - if (message.message.user_sender[0].role === 'admin') { userToShow = message.message.user_receiver[0]; }
+        a.message__link(href=`/messages/${userToShow._id}`)
+          .message#messageChat(data-id= userToShow._id)
+            .message__img-box
+              img(src=`/img/users/${userToShow.photo}`)
+            .message__info-box
+              .message__name= `${userToShow.name} ${userToShow.lastName}`
+              .message__last-message= message.message.messageBody.length < 30 ? message.message.messageBody : message.message.messageBody.slice(0, 30) + '...'
+            - if (!message.message.read && (String(message.message.to) === String(user._id)))
+              .message__notification 1
+            .message__actions
+              button#deleteMessageChatBtn.message__action
+                img(src="/img/icons/ui/admin/trash--white.svg")
+

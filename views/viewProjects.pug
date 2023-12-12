@@ -1,0 +1,283 @@
+extends base
+
+block content
+  - const queryArr = Object.keys(query);
+  - const hasQuery = queryArr.length === 0 || (queryArr.length === 1 && queryArr[0] === 'page');
+  link(rel="stylesheet", href="/css/projects.css")
+  link(rel="stylesheet", href="/css/viewProjects.css")
+  link(rel="stylesheet", href="/css/adminActions.css")
+  link(rel="stylesheet", href="/css/form.css")
+  link(rel="stylesheet" href="/css/virtual-select.min.css")
+  script(src="/js/virtual-select.min.js")
+  link(rel="stylesheet", href="https://cdn.jsdelivr.net/gh/loadingio/ldCover@v1.0.0/dist/ldcv.min.css")
+  //- script(defer, src="https://cdn.jsdelivr.net/gh/loadingio/ldCover@v1.0.0/dist/ldcv.min.js")
+  section.section-projects.section-container
+    header
+      h2.heading-secondary Proyectos activos
+      if page === 'projects'
+        a.btn.btn-primary.btn-img-container(href="/new-project")
+          span NUEVO POST
+          img(src="/img/icons/ui/plus-bold.svg")
+    if projects.length < 1 && hasQuery
+      h2.filter__error2 No hay ningun proyecto activo! vuelve mas tarde.
+    if projects.length < 1 && !hasQuery
+              h3#errorMsgPhone.filter__error(style=`margin-bottom: 2.4rem`) No hay ningun proyecto con los filtros seleccionados!
+    .projects-container
+      if !(projects.length < 1 && hasQuery)
+        button#openFiltersBtn.btn.btn-primary.btn-img-container(type="submit", data-last-page=``, style=`flex-direction: row-reverse; text-transform: uppercase; margin-bottom: 1.2rem`) 
+          span Filtros
+          img(src="/img/icons/ui/admin/funnel-bold.svg")
+        
+        .projects-filter
+          .projects-filter-wrapper
+            .filter__header
+              h1.filter__title Filtrar por
+              button#closeProjectsFiltersBtn.btn.proposal__button.btn-img
+                    img(src="/img/icons/ui/x-bold.svg", alt="close icon")
+            if projects.length < 1 && !hasQuery
+              h3#errorMsgDesktop.filter__error No hay ningun proyecto con los filtros seleccionados!
+            button#removeFiltersBtn.btn.btn-primary.btn-img-container.btn-delete-filters(type="submit", style=`${hasQuery ? 'display: none' : ''}`)
+                  img(src="/img/icons/light/x-bold.svg")
+                  span Eliminar filtros
+            form.form.form--projects__filter
+              .filter__category
+                h3.filter__category-title Categoría
+                .filter__category-select#category-select
+                
+              script.
+                VirtualSelect.init({
+                  ele: '#category-select',
+                  options: !{JSON.stringify(categoryOptions)},
+                  search: true,
+                  searchGroup: false, // Include group title for searching
+                  searchByStartsWith: false, // Search options by startsWith() method
+                  placeholder: 'Seleccionar categoría',
+                  searchPlaceholderText: 'Buscar...',
+                });
+              if query.category
+                script.
+                  document.getElementById("category-select").setValue(`#{query.category}`)
+                  
+              .filter__category
+                h3.filter__category-title Experiencia
+                .form__checkbox-container.form__checkbox-container--category
+                  .form__group--checkbox.form__group--checkbox--category
+                    input#experience_novice(type="checkbox", value="novice", name="experience", checked=query.experience === 'novice')
+                    label(for="experience_novice") Novato
+                  .form__group--checkbox
+                    input#experience_medium(type="checkbox", value="medium", name="experience", checked=query.experience === 'medium')
+                    label(for="experience_medium") Intermedio
+                  .form__group--checkbox
+                    input#experience_expert(type="checkbox", value="expert", name="experience", checked=query.experience === 'expert')
+                    label(for="experience_expert") Experto
+              .filter__category
+                h3.filter__category-title Duración
+                .form__checkbox-container.form__checkbox-container--category
+                  .form__group--checkbox.form__group--checkbox--category
+                    input#duration_novice(type="checkbox", value="less1month", name="duration", checked=query.duration === 'less1month')
+                    label(for="duration_novice") Menos de 1 mes
+                  .form__group--checkbox
+                    input#duration_1to3months(type="checkbox", value="1to3months", name="duration", checked=query.duration === '1to3months')
+                    label(for="duration_1to3months") 1 a 3 meses
+                  .form__group--checkbox
+                    input#duration_3to6months(type="checkbox", value="3to6months", name="duration", checked=query.duration === '3to6months')
+                    label(for="duration_3to6months") 3 a 6 meses
+                  .form__group--checkbox
+                    input#duration_morethan6(type="checkbox", value="more6months", name="duration", checked=query.duration === 'more6months')
+                    label(for="duration_morethan6") Más de 6 meses
+              .filter__category
+                h3.filter__category-title Tamaño del proyecto
+                .form__checkbox-container.form__checkbox-container--category
+                  .form__group--checkbox.form__group--checkbox--category
+                    input#size_big(type="checkbox", value="big", name="size", checked=query.scope === 'big')
+                    label(for="size_big") Grandes
+                  .form__group--checkbox
+                    input#size_medium(type="checkbox", value="medium", name="size", checked=query.scope === 'medium')
+                    label(for="size_medium") Medios
+                  .form__group--checkbox
+                    input#size_small(type="checkbox", value="small", name="size", checked=query.scope === 'small')
+                    label(for="size_small") Pequeños
+                .form__group(style="display:none")
+                  label.form__label(for="page") Página N°
+                  input#page.form__input(name="page", type="number", min="1", value=`${query.page || 1}`)
+              .filter__actions
+                button#projectsFilterBtn.btn.btn-primary.btn-img-container(type="submit", data-last-page=``) 
+                  span Filtrar
+                  img(src="/img/icons/ui/admin/funnel-bold.svg")
+
+      .projects
+        <div class="ldcv">      <!-- root of the dialog -->
+          <div class="base">    <!-- optional. control the position of dialog -->
+            <div class="inner proposal"> <!-- dialog body. transition happens here -->
+              .proposal__header
+                h1.proposal__title Enviar Propuesta
+                button#closeProposalBtn.btn.proposal__button.btn-img
+                  img(src="/img/icons/ui/x-bold.svg", alt="close icon")
+              .proposal__content
+                form(class=`form form--proposal__send`)
+                  .proposal__pricing
+                    .form__group
+                      .form__heading
+                        label(for="sistemaDeCobro", class="form__label form__label--sistema-de-cobro") ¿Cómo quieres que te paguen?
+                      .form__checkbox-container
+                        .form__group--checkbox
+                          label(for="payment_hourly") Por hora
+                          input#payment_hourly(type="radio", value="hourly", name="paymentType", required="")
+                        .form__group--checkbox
+                          label(for="payment_project") Por proyecto
+                          input#payment_project(type="radio", value="project", name="paymentType", required="")
+                    .form__group
+                      label(for="currency", class="form__label") Moneda
+                      <select name="currency" id="currency" class="form__input form__select" required="">
+                        <option value="ars">ars - Argentina</option>
+                        <option value="brl">brl - Brasil</option>
+                        <option value="bob">bob - Bolivia</option>
+                        <option value="clp">clp - Chile</option>
+                        <option value="cop">cop - Colombia</option>
+                        <option value="crc">crc - Costa Rica</option>
+                        <option value="usdEcuador">usd - Ecuador</option>
+                        <option value="usdElSalvador">usd - El Salvador</option>
+                        <option value="usdPanama">usd - Panamá</option>
+                        <option value="gtq">gtq - Guatemala</option>
+                        <option value="hln">hln - Honduras</option>
+                        <option value="mxn">mxn - Mexico</option>
+                        <option value="pyg">pyg - Paraguay</option>
+                        <option value="pen">pen - Perú</option>
+                        <option value="uyu">uyu - Uruguay</option>
+                        <option value="vef">vef - Venezuela</option>
+                      </select>
+                    .form__group
+                      .form__group-label-container
+                        label(for="projectBudget", class="form__label") Presupuesto del proyecto
+                        //- span.required *
+                      input#projectBudget(type="number", class="form__input", name="projectBudget", required)
+                  .separator
+                  .form__group
+                    label(for="whyApply", class="form__label form__label--sistema-de-cobro form__label--description") ¿Por qué crees que eres la persona ideal para este proyecto?
+                    textarea#whyApply(class="form__input form__input__textarea", required="")
+                  .separator
+                  .form__heading 
+                    label(class="form__label form__label--description") Incluye muestras de trabajo u otros documentos para respaldar tu propuesta. No adjuntes tu currículum, su perfil de Amerilancers se envía automáticamente con su propuesta.
+                    p.text-secondary (Puedes subir un máximo de 5 imágenes)
+                  div(class="form__group")
+                    label#proposalPortafolioBtn(for="proposalPortafolio", class="btn btn-primary btn-img-container")(style="flex-direction: row-reverse")
+                      span CARGAR PORTAFOLIO
+                      img(src="/img/icons/ui/upload-simple-bold.svg")
+                    input#proposalPortafolio(type="file", name="proposalPortafolio" multiple)
+                  .separator
+                  .proposal__footer
+                  button#sendProposalBtn.btn.btn-primary.btn-img-container(type="submit")
+                        | Enviar
+                        img(src="/img/icons/ui/arrow-right.svg")
+              
+            </div>
+          </div>
+        </div>
+        if !(projects.length < 1 && hasQuery)
+          form.form--project-search
+            .project__search
+                input#projectSearchInput(type="text", class="form__input form__input-search", name="search", value=`${query.word || ''}`)
+                button#projectSearchBtn.project__search-btn(type="submit")
+                  img(src="/img/icons/ui/magnifying-glass-bold--white.svg", alt="search icon")
+          
+        each project in projects
+          - const locationsArr = Object.entries(project.location).filter(el => {if (el[1] === true) {return el[0]} else{return false}});
+          - const countriesNames = locationsArr.map(el => {return el[0]});
+          - const category = categoryOptions_clean.find(el => el.value === `${project.category}`);
+          .project#project(data-id=project._id)
+            .project__header
+              h3.project__category= category.label
+              .project__price-container
+                if project.rates.projectRate.usd > 0
+                  .project__price-project= `$USD${project.rates.projectRate.usd}`
+                if project.rates.hourlyRate.usd > 0
+                  .project__price-hourly= `$USD${project.rates.hourlyRate.usd}/hr`
+            .project__content
+              h1.project__title= project.title
+              .project__summary-container(style=`${countriesNames.length > 8 ? 'flex-direction: column' : ''}`)
+                if countriesNames.length > 0
+                  .project__summary
+                    img(src="/img/icons/ui/admin/projects/map-pin.svg", alt="location icon")
+                    span
+                      - countriesNames.shift()
+                      | #{countriesNames.map(el =>{ return el[0].toUpperCase() + el.slice(1)}).map(el => {if (el === 'CostaRica' ){return 'Costa Rica'}if(el === 'ElSalvador'){return 'El Salvador'} return el}).join(" - ")}
+                      
+                .project__summary
+                  img(src="/img/icons/ui/admin/projects/clock.svg", alt="location icon")
+                  span Duración: 
+                    if project.duration === '3to6months'
+                      | 3 a 6 meses
+                    if project.duration === 'more6months'
+                      | más de 6 meses
+                    if project.duration === '1to3months'
+                      | 1 a 3 meses
+                    if project.duration === 'less1month'
+                      | menos de 1 mes
+                .project__summary
+                  img(src="/img/icons/ui/admin/projects/bag-simple.svg", alt="location icon")
+                  span Experiencia: 
+                    if project.experience === 'intermediate'
+                      | Intermedio
+                    if project.experience === 'novice'
+                      | Principiante
+                    if project.experience === 'expert'
+                      | Experto
+              p.project__description= project.description
+              .project__details(style="margin-bottom: 2.4rem")
+                b Tamaño del proyecto: 
+                if project.scope === 'big'
+                  |  Grande
+                if project.scope === 'small'
+                  |  Chico
+                if project.scope === 'medium'
+                  |  Mediano
+              .project__details(style=`${project.skills.length > 0 ? 'margin-bottom: 2.4rem' : ''}`)
+                b Oportunidad para contratar: 
+                if project.hireOpportunity === true 
+                  | Sí
+                else
+                  | No 
+              if project.skills.length > 0
+                .project__details(style=`${project.files.length > 0 ? 'margin-bottom: 2.4rem' : ''}`)
+                  b Habilidades: 
+                  | #{project.skills.join(" - ")}
+              if project.files.length > 0
+                .project__details
+                  b Archivos:
+                .project__files
+                  each file in project.files
+                    a.freelancer__files-container(href=`/files/projects/files/${file}`, target="_blank")
+                        img.icon-file(src="/img/icons/ui/file.svg")
+                        span= file.split('-')[3]
+            .project__footer
+              if page === 'projects'
+                button#viewProjectFreelancersBtn.btn.btn-primary
+                  span VER FREELANCERS
+                .project__actions
+                  button#editProjectBtn.btn.btn-primary.btn-img(style="margin-right: 0.8rem")
+                    img(src="/img/icons/ui/admin/pencil--white.svg")
+                  button#deleteProjectBtn.btn.btn-primary.btn-img
+                    img(src="/img/icons/ui/trash-bold.svg")
+              else
+                if user
+                  button#postulateBtn.btn.btn-primary.btn-img-container
+                    img(src="/img/icons/ui/user-plus-bold--white.svg", alt="postulates icon")
+                    span POSTULARME
+                else
+                  button.btn.btn-primary.btn-img-container(onClick="location.assign('/login')")
+                    img(src="/img/icons/ui/user-plus-bold--white.svg", alt="postulates icon")
+                    span POSTULARME
+        .freelancers__footer
+          .freelancers__pagination#projectsPaginationContainer
+            if query.page > 1
+              button#firstPageBtn.btn.btn-primary.btn-img-container
+                img(src="/img/icons/ui/pagination/caret-double-left-bold.svg")
+              button#previousPageBtn.btn.btn-primary.btn-img-container
+                img(src="/img/icons/ui/pagination/caret-left-bold.svg")
+            if (query.page || 1) < totalPages
+              button#nextPageBtn.btn.btn-primary.btn-img-container
+                img(src="/img/icons/ui/pagination/caret-right-bold.svg")
+              button#lastPageBtn.btn.btn-primary.btn-img-container
+                img(src="/img/icons/ui/pagination/caret-double-right-bold.svg")
+
+      

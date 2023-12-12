@@ -1,0 +1,39 @@
+extends base
+
+block content
+  if user && page === 'registrarse'
+    <script>location.assign("/mi-cuenta");</script>
+  section.section-login.section-container
+      h2.heading-secondary= `${page === 'registrarse' ? 'Registrarme': 'Crear administrador'}`
+      form.form.form--signup.form--login(id=`${page === 'registrarse' ? 'form--signup' : 'form--signup-admin'}`)
+        .login-img-box
+          img(src="/img/sections/contact.jpg")
+        .login-text-box
+          .form__2-cols-container
+            div(class="form__group")  
+              label(for="name", class="form__label") Nombre
+              input#name(type="text", class="form__input", name="name", required)
+            div(class="form__group")
+              label(for="lastName", class="form__label") Apellido
+              input#lastName(type="text", class="form__input", name="lastName", required)
+          if page === 'registrarse'
+            .form__2-cols-container
+              div(class="form__group")
+                label(for="email", class="form__label") Email
+                input#email(type="email", class="form__input", name="email", required="")
+              div(class="form__group")  
+                label(for="occupation", class="form__label") Profesión
+                input#occupation(type="text", class="form__input", name="occupation", required)
+          else
+            div(class="form__group")
+                label(for="email", class="form__label") Email
+                input#email(type="email", class="form__input", name="email", required="")
+          .form__2-cols-container
+            div(class="form__group")
+              label(for="password", class="form__label") Contraseña
+              input#password(type="password", class="form__input", name="password", required)
+            div(class="form__group")
+              label(for="passwordConfirm", class="form__label") Confirmar contraseña
+              input#passwordConfirm(type="password", class="form__input", name="passwordConfirm", required)
+          .form--login__container
+            button.btn.btn-primary(type="submit")= `${page === 'registrarse' ? 'Registrarme': 'Crear'}`

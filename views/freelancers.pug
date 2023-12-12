@@ -1,0 +1,97 @@
+extends base
+
+block content
+  link(rel="stylesheet", href="/css/freelancers.css")
+  link(rel="stylesheet", href="/css/adminActions.css")
+  section.section-freelancers.section-container
+    .actions
+            button#freelancersEditBtn
+              img(src="/img/icons/ui/admin/pencil--white.svg")
+    header
+      h2.heading-secondary Freelancers
+    .freelancers
+      .freelancers__filter 
+        form.form.form--freelancers__filter
+          .freelancers__filter__inputs 
+            .form__group
+              label.form__label(for="profesion") Profesión
+              input#profesion.form__input(name="profesion", type="text", value=`${query.profesion || ''}`)
+            .form__group
+              label.form__label(for="ciudad") Ciudad
+              input#ciudad.form__input(name="ciudad", type="text", value=`${query.ciudad || ''}`)
+            .form__group
+              label.form__label(for="pais") Pais
+              input#pais.form__input(name="pais", type="text", value=`${query.pais || ''}`)
+            .form__group
+              label.form__label(for="rating") Rating
+              input#rating.form__input(name="rating", type="number", min="0", max="5", value=`${query.rating || ''}`)
+            .form__group(style="display:none")
+              label.form__label(for="page") Página N°
+              input#page.form__input(name="page", type="number", min="1", value=`${query.page || 1}`)
+          button#submitFormFiltersBtn.btn.btn-primary.btn-img-container(type="submit", data-last-page=`${totalPages}`) 
+            span Filtrar
+            img(src="/img/icons/ui/admin/funnel-bold.svg")
+      .freelancers__container
+        each freelancer in freelancers
+            .freelancer
+              .freelancer__img-box
+                if freelancer.rating
+                  if freelancer.rating !== 0
+                    .freelancer__rating-container
+                      .freelancer__rating= freelancer.rating
+                      img(src="/img/icons/ui/admin/star-bold.svg")
+                if freelancer.tarifaPorHora
+                  .freelancer__price= freelancer.tarifaPorHora
+                a(href=`/freelancers/${freelancer.user._id}`, class="freelancer__link")
+                  img(src=`/img/users/${freelancer.user.photo}`, class="freelancer__photo")
+              .freelancer__text-box
+                .freelancer__name= `${freelancer.user.name} ${freelancer.user.lastName}`
+                .freelancer__work= `${freelancer.profesion.capitalize()}`
+                .freelancer__info-box
+                  .icon-text-container
+                    img(src="/img/icons/ui/admin/map-pin.svg")
+                    .freelancer__location= `${freelancer.ciudad.capitalize()}, ${freelancer.provincia.capitalize()}, ${freelancer.pais.capitalize()}`
+                  .icon-text-container
+                    img(src="/img/icons/ui/admin/clock.svg")
+                    .freelancer__availability= `${freelancer.horasDisponibles.diarias} horas al día`
+                  if freelancer.telefono
+                    a.freelancer__info-link(href=`tel:${freelancer.telefono}`)
+                      .icon-text-container.icon-text-container--email
+                        img(src="/img/icons/ui/admin/phone.svg")
+                        .freelancer__contacto= freelancer.telefono
+                  else
+                    a.freelancer__info-link(href=`mailto:${freelancer.user.email}`)
+                      .icon-text-container.icon-text-container--email
+                        img(src="/img/icons/ui/admin/envelope-simple.svg")
+                        .freelancer__contacto= freelancer.user.email
+                .freelancer__social
+                  if freelancer.portafolioEnLinea
+                    a(href=`${freelancer.portafolioEnLinea}`, target="_blank", class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/globe-hemisphere-west-bold--white.svg")
+                  if freelancer.redes.instagram
+                    a(href=`${freelancer.redes.instagram}`, target="_blank",  class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/instagram-logo-bold--white.svg")
+                  if freelancer.redes.facebook
+                    a(href=`${freelancer.redes.facebook}`, target="_blank", class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/facebook-logo-bold--white.svg")
+                  if freelancer.redes.linkedin
+                    a(href=`${freelancer.redes.linkedin}`, target="_blank", class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/linkedin-logo-bold--white.svg")
+                  if freelancer.redes.behance
+                    a(href=`${freelancer.redes.behance}`, target="_blank", class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/behance-logo-bold--white.svg")
+      .freelancers__footer
+        .freelancers__pagination#freelancersPaginationContainer
+          if query.page > 1
+            button#firstPageBtn.btn.btn-primary.btn-img-container
+              img(src="/img/icons/ui/pagination/caret-double-left-bold.svg")
+            button#previousPageBtn.btn.btn-primary.btn-img-container
+              img(src="/img/icons/ui/pagination/caret-left-bold.svg")
+          if (query.page || 1) < totalPages
+            button#nextPageBtn.btn.btn-primary.btn-img-container
+              img(src="/img/icons/ui/pagination/caret-right-bold.svg")
+            button#lastPageBtn.btn.btn-primary.btn-img-container
+              img(src="/img/icons/ui/pagination/caret-double-right-bold.svg")
+
+
+          

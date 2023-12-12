@@ -1,0 +1,14 @@
+extends base
+
+block content
+  link(rel="stylesheet", href="/css/contact.css")
+  section.section-contact.section-container
+    header
+      h2.heading-secondary= `Private messaging con ${name}`
+    .chat#chat(data-user-img=`${user.photo}`, data-user-id=`${user._id}`, data-to-id=`${freelancer.id}`, data-to-img=`${freelancer.photo}`)
+      .chat__messages#messages-container
+      .chat__actions
+        form#form--chat--admin.form--chat
+          input.chat__input#input-message(type="text", placeholder="Ingresa tu mensaje...")
+          button.btn-chat(type="submit")
+            img(src="/img/icons/ui/paper-plane-right-bold.svg")

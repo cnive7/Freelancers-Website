@@ -1,0 +1,10 @@
+.actions-container.actions-container--select-group
+  each group in groups
+    - const isMember = group.users.some(user => user.id.toString() === freelancerId)
+    button.group__button(value=`${group._id}` id=`${isMember ? '' : 'selectGroupBtn'}`)
+      div(class=`group ${isMember ? '' : 'group-hover'}`)
+        .group__img-box
+          img(src=`/img/icons/ui/admin/${isMember ? 'check' : 'users-three'}.svg`)
+        .group__info-box
+          .group__name= group.name
+          .group__quantity= `${group.users.length} freelancers`

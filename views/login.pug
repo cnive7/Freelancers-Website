@@ -1,0 +1,22 @@
+extends base
+
+block content
+  if user 
+    <script>location.assign("/mi-cuenta");</script>
+  section.section-login.section-container
+      header
+        h2.heading-secondary Iniciar sesión
+      form#form--login.form.form--login
+        .login-img-box
+          img(src="/img/sections/contact.jpg")
+        .login-text-box
+          div(class="form__group")
+            label(for="email", class="form__label") Email
+            input#email(type="email", class="form__input", name="email", required)
+          div(class="form__group")
+            label(for="password", class="form__label") Contraseña
+            input#password(type="password", class="form__input", name="password", required)
+          .form--login__container
+            .reset-password
+              button#resetPasswordBtn.btn--reset-password(type="button") Recuperar contraseña
+            button.btn.btn-primary(type="submit") Iniciar sesión

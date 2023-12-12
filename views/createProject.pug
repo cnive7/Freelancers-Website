@@ -1,0 +1,198 @@
+extends base
+
+block content
+  link(rel="stylesheet", href="/css/createProject.css")
+  link(rel="stylesheet", href="/css/adminActions.css")
+  link(rel="stylesheet" href="/css/virtual-select.min.css")
+  script(src="/js/virtual-select.min.js")
+  section.section-project.section-container
+    header
+      a.page-back-link(href="/projects")
+        img(src="/img/icons/ui/arrow-left-primary.svg", alt="arrow left icon")
+        h2.heading-secondary Nuevo post de trabajo
+    .separator
+    form(class=`form form--project__create`)
+      .form__group
+        .form__group-label-container
+          label(for="category", class="form__label") Categoria de proyecto
+        .filter__category-select#category-select
+                
+        script.
+          VirtualSelect.init({
+            ele: '#category-select',
+            options: !{JSON.stringify(categoryOptions)},
+            search: true,
+            searchGroup: false, // Include group title for searching
+            searchByStartsWith: false, // Search options by startsWith() method
+            placeholder: 'Seleccionar categoría',
+            searchPlaceholderText: 'Buscar...',
+          });
+      .form__group
+        .form__group-label-container
+          label(for="title", class="form__label") Título
+        input#title(type="text", class="form__input", name="title", value=`${editProject ? editProject.title : ''}`,  required)
+      .form__group
+        label(for="description", class="form__label") Descripción del proyecto
+        textarea#description(class="form__input form__input__textarea", value=`${editProject ? editProject.description : ''}`, required="")
+      .separator
+      .form__heading 
+        label(class="form__label form__label--description") Sube archivos relevantes del proyecto
+        //- p.text-secondary (Puedes subir un máximo de 5 imágenes)
+      .form__group
+        label#projectFilesBtn(for="projectFiles", class="btn btn-primary btn-img-container")(style="flex-direction: row-reverse")
+          span SUBIR ARCHIVOS
+          img(src="/img/icons/ui/upload-simple-bold.svg")
+        input#projectFiles(type="file", name="projectFiles" multiple)
+      .separator
+      .form__group
+        .form__heading
+          label(for="skill", class="form__label") ¿Cuáles son las principales habilidades requeridas para su trabajo? 
+        #actionsProjectSkillsContainer.actions-container
+          button#addSkill.btn.btn-primary.btn-img-container
+            | Añadir habilidad
+            img(src="/img/icons/ui/plus-bold.svg")
+      .separator
+      .form__group 
+        .form__heading
+          label(for="sistemaDeCobro", class="form__label form__label--sistema-de-cobro") Estimar el alcance de su trabajo
+          p.text-secondary(style="text-align: left") (Estas no son respuestas definitivas, pero esta información nos ayuda a recomendar el talento adecuado para lo que necesita) 
+        .form__checkbox-container.form__checkbox-container--3vertical
+          .form__group--checkbox
+            label(for="scope_big") Grandes : Iniciativas complejas o a largo plazo
+              b  (Ej: Sitio web completo)
+            input#scope_big(type="radio", value="big", name="scope", required="")
+          .form__group--checkbox
+            label(for="scope_medium") Medios : Proyectos bien definidos
+              b  (Ej: Página de destino)
+            input#scope_medium(type="radio", value="medium", name="scope")
+          .form__group--checkbox
+            label(for="scope_small") Pequeños : Tareas rápidas y sencillas
+              b  (Ej: Actualizar texto e imágenes de una página web)
+            input#scope_small(type="radio", value="small", name="scope")
+      .separator
+      .form__group
+        .form__heading
+          label(for="sistemaDeCobro", class="form__label form__label--sistema-de-cobro") ¿Cuánto tiempo llevará el trabajo?
+        .form__checkbox-container
+          .form__group--checkbox
+            label(for="duration_more6") Más de 6 meses
+            input#duration_more6(type="radio", value="more6months", name="duration", required="")
+          .form__group--checkbox
+            label(for="duration_3to6") 3 a 6 meses
+            input#duration_3to6(type="radio", value="3to6months", name="duration")
+          .form__group--checkbox
+            label(for="duration_1to3") 1 a 3 meses
+            input#duration_1to3(type="radio", value="1to3months", name="duration")
+          .form__group--checkbox
+            label(for="duration_less1") Menos de 1 mes
+            input#duration_less1(type="radio", value="less1month", name="duration")
+      .separator
+      .form__group 
+        .form__heading
+          label(for="sistemaDeCobro", class="form__label form__label--sistema-de-cobro") ¿Qué nivel de experiencia necesitará?
+          p.text-secondary(style="text-align: left") (Esto no restringirá ninguna propuesta, pero ayuda a adaptar la experiencia a su presupuesto).
+        .form__checkbox-container.form__checkbox-container--3vertical
+          .form__group--checkbox
+            label(for="level_novice")
+              b  Novato
+              | : Buscando alguien nuevo
+            input#level_novice(type="radio", value="novice", name="level", required="")
+          .form__group--checkbox
+            label(for="level_intermediate")
+              b  Intermedio
+              |  : Buscando experiencia sustancial
+            input#level_intermediate(type="radio", value="intermediate", name="level", required="")
+          .form__group--checkbox
+            label(for="level_expert") 
+              b  Experto
+              |  : Buscando una experiencia completa y profunda
+            input#level_expert(type="radio", value="expert", name="level")
+      .separator
+      .form__group
+        .form__heading
+          label(for="sistemaDeCobro", class="form__label form__label--sistema-de-cobro") ¿Este proyecto es una oportunidad de trabajo para contratar?
+          p.text-secondary(style="text-align: left") (Esto significa que comenzará con un contrato,  y luego explorará una opción de tiempo completo con el talento. Su respuesta nos ayuda a respaldar mejor sus necesidades de contratación)
+        .form__checkbox-container
+          .form__group--checkbox
+            label(for="toHireYes") Si
+            input#toHireYes(type="radio", value="true", name="toHire", required="")
+          .form__group--checkbox
+            label(for="toHireNo") No
+            input#toHireNo(type="radio", value="false", name="toHire", required="")
+      .separator
+      .form__group 
+        .form__heading
+          label(for="location_argentina", class="form__label form__label--sistema-de-cobro") Seleccione su ubicación preferida de talento
+          p.text-secondary(style="text-align: left") Esto aumenta las propuestas de talento en una región específica, pero aún abre su puesto de trabajo a todos los candidatos.
+        .form__checkbox-container
+          .form__group--checkbox
+            label(for="location_argentina") Argentina
+            input#location_argentina(type="checkbox", value="location_argentina", name="argentina")
+          .form__group--checkbox
+            label(for="location_chile") Chile
+            input#location_chile(type="checkbox", value="location_chile", name="chile")
+          .form__group--checkbox
+            label(for="location_peru") Perú
+            input#location_peru(type="checkbox", value="location_peru", name="peru")
+          .form__group--checkbox
+            label(for="location_brasil") Brasil
+            input#location_brasil(type="checkbox", value="location_brasil", name="brasil")
+          .form__group--checkbox
+            label(for="location_ecuador") Ecuador
+            input#location_ecuador(type="checkbox", value="location_ecuador", name="ecuador")
+          .form__group--checkbox
+            label(for="location_bolivia") Bolivia
+            input#location_bolivia(type="checkbox", value="location_bolivia", name="bolivia")
+          .form__group--checkbox
+            label(for="location_uruguay") Uruguay
+            input#location_uruguay(type="checkbox", value="location_uruguay", name="uruguay")
+          .form__group--checkbox
+            label(for="location_colombia") Colombia
+            input#location_colombia(type="checkbox", value="location_colombia", name="colombia")
+          .form__group--checkbox
+            label(for="location_venezuela") Venezuela
+            input#location_venezuela(type="checkbox", value="location_venezuela", name="venezuela")
+          .form__group--checkbox
+            label(for="location_paraguay") Paraguay
+            input#location_paraguay(type="checkbox", value="location_paraguay", name="paraguay")
+          .form__group--checkbox
+            label(for="location_costaRica") Costa Rica
+            input#location_costaRica(type="checkbox", value="location_costaRica", name="costaRica")
+          .form__group--checkbox
+            label(for="location_panama") Panamá
+            input#location_panama(type="checkbox", value="location_panama", name="panama")
+          .form__group--checkbox
+            label(for="location_elSalvador") El Salvador
+            input#location_elSalvador(type="checkbox", value="location_elSalvador", name="elSalvador")
+          .form__group--checkbox
+            label(for="location_honduras") Honduras
+            input#location_honduras(type="checkbox", value="location_honduras", name="honduras")
+          .form__group--checkbox
+            label(for="location_nicaragua") Nicaragua
+            input#location_nicaragua(type="checkbox", value="location_nicaragua", name="nicaragua")
+          .form__group--checkbox
+            label(for="location_guatemala") Guatemala
+            input#location_guatemala(type="checkbox", value="location_guatemala", name="guatemala")
+          .form__group--checkbox
+            label(for="location_mexico") Mexico
+            input#location_mexico(type="checkbox", value="location_mexico", name="mexico")
+      .separator
+      .fomr__group
+        .form__heading
+          label(for="hourlyRate", class="form__label form__label--sistema-de-cobro") Cuéntenos sobre su presupuesto
+          p.text-secondary(style="text-align: left") (Esto nos ayudará a encontrarle talento dentro de su rango)
+        .form__3-cols-container
+          div(class="form__group")
+            .form__group-label-container
+              label(for="hourlyRate", class="form__label") Tarifa por hora (en USD)
+            input#hourlyRate(type="number", class="form__input", name="hourlyRate")
+          div(class="form__group")
+            .form__group-label-container
+              label(for="projectRate", class="form__label") Presupuesto del proyecto (en USD)
+            input#projectRate(type="number", class="form__input", name="projectRate")
+      .form__group
+        button#submitBtn.btn.btn-primary.btn-img-container(type="submit", style="flex-direction: row")
+          span Enviar
+          img(src="/img/icons/ui/arrow-right-bold.svg")
+
+          

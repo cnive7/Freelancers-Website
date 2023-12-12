@@ -1,0 +1,25 @@
+extends base
+
+block content
+  link(rel="stylesheet", href="/css/group.css")
+  link(rel="stylesheet", href="/css/adminActions.css")
+  section#group.section-group.section-container(data-id= group._id)
+    .actions
+            button#groupEditBtn
+              img(src="/img/icons/ui/admin/pencil--white.svg")
+    header
+      h2.heading-secondary= group.name
+      .group__freelancers-quantity 
+        img(src="/img/icons/ui/admin/users-three.svg")
+        .freelancers-quantity= `${group.users.length} freelancers` 
+    .freelancers
+      each freelancer in group.users
+        a.freelancer__link(href=`/freelancers/${freelancer.id._id}`)
+          .freelancer#freelancer(data-id= freelancer.id._id)
+            .freelancer__img-box
+              img(src=`/img/users/${freelancer.id.photo}`)
+            .freelancer__info-box
+              .freelancer__name= `${freelancer.id.name} ${freelancer.id.lastName}`
+            .group__actions
+              button#deleteFreelancerFromGroupBtn.group__action
+                img(src="/img/icons/ui/admin/trash--white.svg")

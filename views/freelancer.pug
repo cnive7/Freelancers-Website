@@ -1,0 +1,125 @@
+
+extends base
+
+block content
+  link(rel="stylesheet", href="/css/freelancer.css")
+  link(rel="stylesheet", href="/css/adminActions.css")
+  section.section-freelancer.section-container 
+    .freelancer#freelancer(data-id= freelancer.user._id)
+      .freelancer__head
+        .user-data-container
+          .name-email-container
+            .freelancer__name= `${freelancer.user.name} ${freelancer.user.lastName}`
+            .freelancer__work= freelancer.profesion.capitalize()
+          img.freelancer__photo(src=`/img/users/${freelancer.user.photo}`)
+          if freelancer.tarifaPorHora
+            .freelancer__price= `${freelancer.tarifaPorHora}/hr`
+          .actions
+            button#freelancerEditBtn
+              img(src="/img/icons/ui/admin/pencil--white.svg")
+      if proposal
+        .separator
+        .freelancer__section__group 
+          h3.freelancer__heading Propuesta al proyecto "#{proposal.projectName}"
+          .icon-text-container
+            img(src="/img/icons/ui/admin/wallet.svg")
+            .freelancer__availability= `${proposal.payment.paymentAmount} ${proposal.payment.paymentCurrency} por ${proposal.payment.paymentType === 'hourly' ? 'hora' : 'el proyecto'}`
+          .icon-text-container
+            img(src="/img/icons/ui/admin/person.svg")
+            .freelancer__availability= proposal.whyApply
+          each proposalFile in proposal.similarPortafolio
+            a.freelancer__files-container(href=`/files/users/proposalPortfolios/${proposalFile}`, target="_blank")
+                  img.icon-file(src="/img/icons/ui/file.svg")
+                  span= proposalFile.split('-')[3]
+      if freelancer.sobreMi
+        .separator
+        .freelancer__section__group 
+          h3.freelancer__heading Sobre mí
+          .icon-text-container
+              img(src="/img/icons/ui/admin/person.svg")
+              .freelancer__about__me= freelancer.sobreMi
+      if freelancer.portafolio.length > 0 || freelancer.portafolioEnLinea
+        .separator
+        .freelancer__files
+          .freelancer__section__group
+            h3.freelancer__heading Portafolio
+            if freelancer.portafolioEnLinea
+              .icon-text-container
+                img(src="/img/icons/ui/admin/globe-hemisphere-west--white.svg")
+                a.freelancer__portafolio-link(href=`${freelancer.portafolioEnLinea}`)= freelancer.portafolioEnLinea
+            each file in freelancer.portafolio
+              a.freelancer__files-container(href=`/files/users/portfolios/${file}`, target="_blank")
+                img.icon-file(src="/img/icons/ui/file.svg")
+                span= file.split('-')[3]
+      if freelancer.curriculum
+        .separator
+        .freelancer__section__group
+          h3.freelancer__heading Currículum
+          a.freelancer__files-container(href=`/files/users/curriculums/${freelancer.curriculum}`, target="_blank")
+            img.icon-file(src="/img/icons/ui/file.svg")
+            span= freelancer.curriculum.split('-')[3]
+      .separator
+      .freelancer__section__group
+        h3.freelancer__heading Información
+        .icon-text-container
+          img(src="/img/icons/ui/admin/clock.svg")
+          .freelancer__availability= `${freelancer.horasDisponibles.diarias} por día`
+        .icon-text-container
+          img(src="/img/icons/ui/admin/wallet.svg")
+          .freelancer__payment__method= `${freelancer.sistemaDeCobro.paypal ? 'Paypal' : ''} ${freelancer.sistemaDeCobro.westernUnion ? 'Western Union' : ''} ${freelancer.sistemaDeCobro.transferencia ? 'Transferencia' : ''} ${freelancer.otroSistemaDeCobro ? freelancer.otroSistemaDeCobro : ''}` 
+        if freelancer.ingles
+          .icon-text-container
+            img(src="/img/icons/ui/admin/translate.svg")
+            .freelancer__ingles= `Inglés ${freelancer.nivelDeIngles ? freelancer.nivelDeIngles.capitalize() : ''}`
+        .icon-text-container
+          img(src="/img/icons/ui/admin/map-pin.svg")
+          .freelancer__location= `${freelancer.ciudad.capitalize()}, ${freelancer.provincia.capitalize()}, ${freelancer.pais.capitalize()}`
+      if freelancer.programas.length > 0
+        .separator
+        .freelancer__section__group   
+          h3.freelancer__heading Programas
+          each programa in freelancer.programas 
+            .icon-text-container
+              img(src="/img/icons/ui/admin/app-window.svg")
+              .freelancer__program= `${programa.programa} ${programa.nivel.capitalize()}`
+      if freelancer.experiencias.length > 0
+        .separator
+        .freelancer__section__group
+          h3.freelancer__heading Experiencias
+          each experiencia in freelancer.experiencias
+            .icon-text-container
+              img(src="/img/icons/ui/admin/scroll.svg")
+              .freelancer__experience= `${experiencia.experiencia} ${experiencia.nivel.capitalize()}`
+      .separator
+      .freelancer__contact 
+        h3.freelancer__heading Datos de contacto
+        a.icon-text-container(href=`mailto:${freelancer.user.email}`)
+          img(src="/img/icons/ui/admin/envelope-simple.svg")
+          .freelancer__email= freelancer.user.email
+        if freelancer.telefono !== null
+          a.icon-text-container(href=`tel:${freelancer.telefono}`)
+            img(src="/img/icons/ui/admin/phone.svg")
+            .freelancer__phone= freelancer.telefono
+      .freelancer__social
+                  if freelancer.portafolioEnLinea
+                    a(href=`${freelancer.portafolioEnLinea}`, target="_blank", class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/globe-hemisphere-west-bold--white.svg")
+                  if freelancer.redes.instagram
+                    a(href=`${freelancer.redes.instagram}`, target="_blank",  class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/instagram-logo-bold--white.svg")
+                  if freelancer.redes.facebook
+                    a(href=`${freelancer.redes.facebook}`, target="_blank", class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/facebook-logo-bold--white.svg")
+                  if freelancer.redes.linkedin
+                    a(href=`${freelancer.redes.linkedin}`, target="_blank", class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/linkedin-logo-bold--white.svg")
+                  if freelancer.redes.behance
+                    a(href=`${freelancer.redes.behance}`, target="_blank", class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/behance-logo-bold--white.svg")
+                  if freelancer.redes.youtube
+                    a(href=`${freelancer.redes.youtube}`, target="_blank", class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/youtube-logo-bold--white.svg")
+                  if freelancer.redes.vimeo
+                    a(href=`${freelancer.redes.vimeo}`, target="_blank", class="freelancer__social-link")
+                      img.freelancer__social-icon(src="/img/icons/ui/admin/social/video-camera-bold--white.svg")
+

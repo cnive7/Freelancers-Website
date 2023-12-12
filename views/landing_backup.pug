@@ -1,0 +1,242 @@
+extends base
+
+block content
+  section.section-hero
+    include _header
+    .hero.section-container
+      .hero-text-box
+        p.hero-title-small Te invitamos a formar parte de
+        h2.hero-title-medium La Comunidad Creativa Número Uno
+        h1.hero-title-big de América
+        a.btn.btn-hero(href=`${user ? '/completar-perfil' : '/registrarse'}`) CREA TU PERFIL
+      .hero-img-box
+        picture
+          source(srcset="img/sections/hero/hero-img-mobile.webp")
+          img(src="img/sections/hero/hero-img-mobile.png", alt="personas felices")
+  section#como-funciona.section-como-funciona.section-container
+    header
+      h1(class="header__heading-primary") ¿Cómo funciona?
+      h2.helper-text
+        | 3 pasos fáciles para convertirte en un Amerilancer
+    .steps
+      .step
+        div(class="step__icon-container")
+          img.icon-landing(src="/img/icons/ui/landing/pencil.svg", alt="icono lapiz")
+        h3(class="step__title") Completar tu Perfil
+        ul(class="step__list")
+          li(class="step__item") Registrarse
+          li(class="step__item") Crear tu perfil
+          li(class="step__item") Subir o poner el enlace a tu portafolio
+      .step
+        div(class="step__icon-container")
+          img.icon-landing(src="/img/icons/ui/landing/magnifying-glass.svg", alt="icono lupa")
+        h3(class="step__title") Revisión de perfil y entrevista
+        ul(class="step__list")
+          li(class="step__item")
+            | Nuestro equipo hará una revision de tu perfil
+          li(class="step__item")
+            | Uno de nuestros de nuestros asociados se pondrá en contacto por
+            | WhatsApp o Zoom para una corta entrevista
+          li(class="step__item") Verificación de datos
+      .step
+        div(class="step__icon-container")
+          img.icon-landing(src="/img/icons/ui/landing/handshake.svg", alt="icono apreton de manos")
+        h3(class="step__title") Asignación de proyectos
+        ul(class="step__list")
+          li(class="step__item")
+            | Se asignaran Proyectos afines a tus habilidades y experiencia
+          li(class="step__item")
+            | Las tarifas y honorarios se determinarán de acuerdo complejidad
+            | del proyecto a trabajar
+    .extra-content
+      p(class="step__footer-text")
+        | Tienes más posibilidades de conseguir proyectos si completas todos los
+        | campos de tu perfil.
+      p(class="step__footer-text-secondary")
+        | Te invitamos a unirte a nuestra comunidad.
+      .btn-cta-container
+        a.btn.btn-primary.btn-cta--section(href=`${user ? '/completar-perfil' : '/registrarse'}`)
+          .btn-img-container
+            span CREA TU PERFIL
+            img.btn-img(src="img/icons/ui/arrow-right-bold.svg", alt="icono del botón")
+  section#beneficios.section-beneficios.section-container
+    header
+      h1(class="header__heading-primary") Beneficios
+    .beneficios
+      .beneficios-img-box
+        img(src="img/sections/beneficios.jpg", alt="persona feliz con los beneficios de amerilancers")
+      .beneficios-text-box
+        .beneficio
+          div(class="beneficio__icon-container")
+            img.icon-landing(src="/img/icons/ui/landing/globe-hemisphere-west.svg", alt="icono lapiz")
+          div(class="beneficio__title") Trabaja desde cualquier lugar
+          div(class="beneficio__description")
+            | Con nuestro enfoque remoto puedes trabajar desde tu casa, cuando
+            | viajas o en cualquier lugar donde te encuentres.
+        .beneficio
+          div(class="beneficio__icon-container")
+            img.icon-landing(src="/img/icons/ui/landing/translate.svg", alt="icono idiomas")
+          div(class="beneficio__title") Proyectos en tu idioma
+          div(class="beneficio__description")
+            | Toda la comunicación será en tu idioma, lo que hará que los
+            | proyectos sean mas fácil de realizar.
+        .beneficio
+          div(class="beneficio__icon-container")
+            img.icon-landing(src="/img/icons/ui/landing/smiley.svg", alt="icono cara feliz")
+          div(class="beneficio__title") Sin pagos ni cargos
+          div(class="beneficio__description")
+            | Amerilancers es una plataforma que no cobra nada al freelancer.
+        .beneficio
+          div(class="beneficio__icon-container")
+            img.icon-landing(src="/img/icons/ui/landing/currency-dollar.svg", alt="icono dinero")
+          div(class="beneficio__title")
+            | Rango de pago competitivo y directo
+          div(class="beneficio__description")
+            | Todos los pagos se harán directo y sin ningún recargo.
+  section#nosotros.section-nosotros.section-container
+    header
+      h1.heading-secondary
+        | La Comunidad Creativa Freelance Número Uno de América
+    .section-content
+      p.body-text
+        | Amerilancers es una comunidad de profesionales talentosos en
+        | creatividad, comunicación, estrategia y tecnología, y trabajamos en
+        | equipos flexibles para apoyar a empresas de todo el mundo. Al crear
+        | equipos ágiles con las personas adecuadas, ayudamos a nuestros
+        | clientes a funcionar de manera más eficiente.
+      p.body-text
+        | Como institución impulsada por nuestras propias necesidades y siempre
+        | en busca de talento independiente, la misión de Amerilancer es llevar
+        | la energía del apoyo, la comunidad y la colaboración a la era laboral
+        | moderna, donde se puede encontrar la libertad y la flexibilidad.
+  section#testimonios.section-testimonios
+    header.section-container
+      h2(class="header__heading-primary") Testimonios
+    .testimonios
+      // Swiper
+      .swiper.mySwiper
+        .swiper-wrapper
+          .swiper-slide
+            figure.testimonio
+              img(class="testimonio__img", src="img/users/arav.jpeg", alt="autor del testimonio")
+              blockquote(class="testimonio__text")
+                | ¡El equipo de Amerilancers me ha ayudado a conseguir trabajos!
+                | Estoy muy feliz con mi experiencia y definitivamente
+                | recomendaría a cualquiera que esté buscando trabajo freelance
+                | que se registre en Amerilancers. ¡Todo el proceso ha sido
+                | super facil, desde la comunicación inicial hasta la entrega de
+                | los proyectos!
+              p(class="testimonio__author") &mdash; Marco Hernan
+              p(class="testimonio__work") Diseñador web
+              p(class="testimonio__location") Córdoba
+          .swiper-slide
+            figure.testimonio
+              img(class="testimonio__img", src="img/users/user-8.jpg", alt="autor del testimonio")
+              blockquote(class="testimonio__text")
+                | Amerilancers me ha ayudado a encontrar muchos trabajos
+                | independientes que de otro modo no habría conocido. Como
+                | community manager, agradezco poder conectarme con tantas
+                | empresas y autónomos en un solo lugar.
+              p(class="testimonio__author") &mdash; Daniella Silva
+              p(class="testimonio__work") Community Manager
+              p(class="testimonio__location") Buenos Aires
+          .swiper-slide
+            figure.testimonio
+              img(class="testimonio__img", src="img/users/user-7.jpg", alt="autor del testimonio")
+              blockquote(class="testimonio__text")
+                | “Estoy tan feliz con Amerilancers” Soy un escritora
+                | independiente y he estado trabajando con Amerilancers durante
+                | unos meses. He conseguido trabajar con ellos y también los he
+                | recomendado a otros escritores. Son una gran empresa y estoy
+                | muy contenta con el trabajo que han hecho por mí.
+              p(class="testimonio__author") &mdash; Isabella Mendez
+              p(class="testimonio__work") Copywriter
+              p(class="testimonio__location") Buenos Aires
+        //- .swiper-button-next
+        //- .swiper-button-prev
+        .swiper-pagination
+      // Swiper JS
+      script(src="/js/swiper-bundle.min.js")
+      // Initialize Swiper
+      script.
+        var swiper = new Swiper(".mySwiper", {
+        pagination: {
+        el: ".swiper-pagination",
+        },
+        autoplay: {
+          delay: 3500,
+          disableOnInteraction: false,
+        },
+        //- navigation: {
+        //-   nextEl: ".swiper-button-next",
+        //-   prevEl: ".swiper-button-prev",
+        //- },
+        });
+      // End Swiper
+    .btn-cta-container
+      a.btn.btn-primary.btn-cta--section(href=`${user ? '/completar-perfil' : '/registrarse'}`)
+        .btn-img-container
+          span CREA TU PERFIL
+          img.btn-img(src="img/icons/ui/arrow-right-bold.svg", alt="icono del botón")
+  section#faq.section-faq.section-container
+    header
+      h2(class="header__heading-primary") Preguntas frecuentes
+    details
+      summary ¿Tiene algun costo unirse a Amerilancers?
+      div No, Amerilancers es totalmente gratis.
+    details
+      summary ¿Puedo hacer crecer mi carrera en Amerilancers?
+      div
+        | Sí, algunos de nuestros profesionales más exitosos han aportado su
+        | sólida formación y trayectoria laboral a Amerilancers
+    details
+      summary
+        | ¿Qué puedo ganar trabajando como independiente con Amerilancers?
+      div
+        | Muchas más personas como vos están eligiendo dejar sus trabajos
+        | diarios y crecer como profesionales independientes. ¿Por qué? Por la
+        | libertad y flexibilidad que conlleva ser tu propio jefe. Y por la
+        | oportunidad de trabajar con grandes clientes y marcas reconocidas.
+        | Muchos eligen Amerilancers porque les ayudamos a hacerlo bien.
+    details
+      summary ¿Qué proyectos puedo encontrar en Amerilancers?
+      div
+        | Nuestros clientes buscan ayuda en casi todas las areas creativas.
+        | Nosotros te asignamos el trabajo acorde a tus habilidades, desde
+        | proyectos específicos hasta trabajos continuos a largo plazo, con
+        | contratos de precio fijo y por hora.
+  section#contacto.section-formulario.section-container
+    header
+      h1(class="header__heading-primary") Quieres saber más de nosotros?
+      h2(class="header__heading-secondary")
+        | Si tienes dudas, comentarios, o simplemente nos quieres saludar hazlo
+        | por medio de la siguiente forma.
+    .contact-container
+      .photo
+        img(src="img/sections/contact.jpg", alt="personas felices dando la bienvenida")
+      form#form--contact.form.form--contact
+        div(class="form__groups")
+          div(class="form__group")
+            label(for="nombre", class="form__label") Nombre
+            input#nombre(type="text", name="nombre", class="form__input", required)
+          div(class="form__group")
+            label(for="apellido", class="form__label") Apellido
+            input#apellido(type="text", name="apellido", class="form__input")
+          div(class="form__group")
+            label(for="email", class="form__label") E-mail
+            input#email(type="email", name="email", class="form__input", required)
+          div(class="form__group")
+            label(for="mensaje", class="form__label") Mensaje
+            textarea#mensaje(name="mensaje", class="form__input form__input__textarea")
+        button.btn.btn-primary(type="submit") Enviar
+  include components/hotjar
+  script.
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/633dee2654f06e12d898a12c/1gekuki2f';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();

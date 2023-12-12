@@ -1,0 +1,35 @@
+.testimonial#testimonial
+    .form__heading
+      p.text-secondary TESTIMONIO
+    .form__group
+      button#deleteTestimonial.btn.btn-primary.btn-img(onclick="this.closest('#testimonial').remove()")
+          img(src="/img/icons/ui/trash-bold.svg")
+      div(class="form__group")
+        label(for=`testimonialImg`, class="form__label") Foto
+        input(id=`testimonialImg` type="text", class="form__input", name=`testimonialImg`, value="")
+      div(class="form__group")
+        label(for=`testimonialText`, class="form__label") Cita
+        textarea(id=`testimonialText` class="form__input form__input__textarea", name=`testimonialText`)= ""
+      .form__3-cols-container
+        div(class="form__group")
+          label(for=`testimonialAuthor`, class="form__label") Autor
+          input(id=`testimonialAuthor` type="text", class="form__input", name=`testimonialAuthor`, value="")
+        div(class="form__group")
+          label(for=`testimonialWork`, class="form__label") Profesión
+          input(id=`testimonialWork` type="text", class="form__input", name=`testimonialWork`, value=``)
+        div(class="form__group")
+          label(for=`testimonialLocation`, class="form__label") Ubicación
+          input(id=`testimonialLocation` type="text", class="form__input", name=`testimonialLocation`, value=``)
+
+
+.faq#faq
+  .form__heading
+    p.text-secondary Pregunta 
+  button#deleteTestimonial.btn.btn-primary.btn-img(onclick="this.closest('#faq').remove()")
+        img(src="/img/icons/ui/trash-bold.svg")
+  div(class="form__group")
+      label(for=`faqQuestion`, class="form__label") Pregunta
+      input(id=`faqQuestion` type="text", class="form__input", name=`faqQuestion`, value=``)
+  div(class="form__group")
+      label(for=`faqAnswer`, class="form__label") Respuesta
+      textarea(id=`faqAnswer` class="form__input form__input__textarea", name=`faqAnswer`)

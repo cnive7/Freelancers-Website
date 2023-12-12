@@ -1,0 +1,10 @@
+extends base
+
+block content
+  link(rel="stylesheet", href="/css/error.css")
+  section.section-error.section-container
+    .error
+      .error__title
+        h2.error__emoji 😢 🤯
+        h2.heading-secondary.heading-secondary--error= title   
+      .error__msg= message

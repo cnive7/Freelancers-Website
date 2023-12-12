@@ -1,0 +1,272 @@
+- let counterPrograma = 0;
+- let counterExperiencia = 0;
+mixin programa(nombre, nivel, counter)
+    div(class="form__group form__group--programa")
+      label(for="programa", class="form__label") Programa
+      .form__group-input-container
+        button#deletePrograma.btn.btn-primary.btn-img(onclick="this.closest('.form__group').remove()")
+          img(src="/img/icons/ui/trash-bold.svg")
+        input#programa(type="text", class="form__input", value=`${nombre}`)
+      label(for=`nivelDePrograma${counter}`, class="form__label") Nivel del programa
+      .form__radios-container
+        .radio-group
+          label(for=`nivelDeProgramaBasico${counter}`) Basico
+          - if (nivel === 'basico')
+            input(id=`nivelDeProgramaBasico${counter}`, type="radio", class="form__input checkbox", name=`nivelDePrograma${counter}`, value="basico", checked="", required)
+          - else
+            input(id=`nivelDeProgramaBasico${counter}`, type="radio", class="form__input checkbox", name=`nivelDePrograma${counter}`, value="basico", required)
+        .radio-group
+          label(for=`nivelDeProgramaIntermedio${counter}`) Intermedio
+          - if (nivel === 'intermedio')
+            input(id=`nivelDeProgramaIntermedio${counter}`, type="radio", class="form__input checkbox", name=`nivelDePrograma${counter}`, value="intermedio", checked="")
+          - else
+            input(id=`nivelDeProgramaIntermedio${counter}`, type="radio", class="form__input checkbox", name=`nivelDePrograma${counter}`, value="intermedio")
+        .radio-group
+          label(for=`nivelDeProgramaAvanzado${counter}`) Avanzado
+          - if (nivel === 'avanzado')
+            input(id=`nivelDeProgramaAvanzado${counter}`, type="radio", class="form__input checkbox", name=`nivelDePrograma${counter}`, value="avanzado", checked="")
+          - else
+            input(id=`nivelDeProgramaAvanzado${counter}`, type="radio", class="form__input checkbox", name=`nivelDePrograma${counter}`, value="avanzado")
+
+mixin experiencia(nombre, nivel, counter)
+    div(class="form__group form__group--experiencia")
+      label(for="experiencia", class="form__label") Experiencia
+      .form__group-input-container
+        button#deletePrograma.btn.btn-primary.btn-img(onclick="this.closest('.form__group').remove()")
+          img(src="/img/icons/ui/trash-bold.svg")
+        input#experiencia(type="text", class="form__input", value=`${nombre}`)
+      label(for=`nivelDeExperiencia${counter}`, class="form__label") Nivel de experiencia
+      .form__radios-container
+        .radio-group
+          label(for=`nivelDeExperienciaBasico${counter}`) Basico
+          - if (nivel === 'basico')
+            input(id=`nivelDeExperienciaBasico${counter}`, type="radio", class="form__input checkbox", name=`nivelDeExperiencia${counter}`, value="basico", checked="", required="")
+          - else 
+            input(id=`nivelDeExperienciaBasico${counter}`, type="radio", class="form__input checkbox", name=`nivelDeExperiencia${counter}`, value="basico", required="")
+        .radio-group
+          label(for=`nivelDeExperienciaIntermedio${counter}`) Intermedio
+          - if (nivel === 'intermedio')
+            input(id=`nivelDeExperienciaIntermedio${counter}`, type="radio", class="form__input checkbox", name=`nivelDeExperiencia${counter}`, value="intermedio", checked="")
+          - else
+            input(id=`nivelDeExperienciaIntermedio${counter}`, type="radio", class="form__input checkbox", name=`nivelDeExperiencia${counter}`, value="intermedio")
+        .radio-group
+          label(for=`nivelDeExperienciaAvanzado${counter}`) Avanzado
+          - if (nivel === 'avanzado')
+            input(id=`nivelDeExperienciaAvanzado${counter}`,type="radio", class="form__input checkbox", name=`nivelDeExperiencia${counter}`, value="avanzado", checked="")
+          - else
+            input(id=`nivelDeExperienciaAvanzado${counter}`,type="radio", class="form__input checkbox", name=`nivelDeExperiencia${counter}`, value="avanzado")
+        .radio-group
+          label(for=`nivelDeExperienciaExperto${counter}`) Experto
+          - if (nivel === 'experto')
+            input(id=`nivelDeExperienciaExperto${counter}`, type="radio", class="form__input checkbox", name=`nivelDeExperiencia${counter}`, value="experto", checked="")
+          - else
+            input(id=`nivelDeExperienciaExperto${counter}`, type="radio", class="form__input checkbox", name=`nivelDeExperiencia${counter}`, value="experto")
+      
+
+form(class=`form form--cv__update`)
+  div(class="form__group form__group--photo")
+    .user-data-container
+      .name-email-container
+        .form__fullname= `${user.name} ${user.lastName}`
+        .form__email= user.email
+      img(class="form__photo", src=`/img/users/${user.photo}`)
+    label#fotoBtn(for="foto", class="btn btn-primary btn-img-container")
+      span CARGAR FOTO
+      img(src="/img/icons/ui/upload-simple-bold.svg")
+    input#foto(type="file", accept="image/*", class="form__upload", name="foto")
+  .separator
+  .form__3-cols-container
+    div(class="form__group")
+      .form__group-label-container
+        label(for="profesion", class="form__label") Profesión
+        span.required *
+      input#profesion(type="text", class="form__input", name="profesion", value=`${cv.profesion}`, required)
+    div(class="form__group")
+      .form__group-label-container
+        label(for="edad", class="form__label") Edad
+        span.required *
+      input#edad(type="number", class="form__input", name="edad", value=`${cv.edad}`, required)
+    div(class="form__group")
+      label(for="telefono", class="form__label") Teléfono
+      input#telefono(type="tel", class="form__input", name="telefono", value=`${cv.telefono ? cv.telefono : ''}`)
+  
+  .form__3-cols-container
+    div(class="form__group")
+      .form__group-label-container
+        label(for="ciudad", class="form__label") Ciudad
+        span.required *
+      input#ciudad(type="text", class="form__input", name="ciudad", value=`${cv.ciudad.capitalize()}`, required)
+    div(class="form__group")
+      .form__group-label-container
+        label(for="provincia", class="form__label") Provincia
+        span.required *
+      input#provincia(type="text", class="form__input", name="provincia", value=`${cv.provincia.capitalize()}`, required)
+    div(class="form__group")
+      .form__group-label-container
+        label(for="pais", class="form__label") País
+        span.required *
+      input#pais(type="text", class="form__input", name="pais", value=`${cv.pais.capitalize()}`, required)
+  
+  .separator
+  div(class="form__group")
+    if cv.curriculum
+      .form__file-container
+        img(src="/img/icons/ui/file.svg", class="icon-file")
+        span= cv.curriculum.split('-')[3]
+    label#curriculumBtn(for="curriculum", class="btn btn-primary btn-img-container")
+      span CARGAR CURRICULUM
+      img(src="/img/icons/ui/upload-simple-bold.svg")
+    input#curriculum(type="file", accept="document/*", class="form__upload", name="curriculum")
+  .form__heading
+    p.text-secondary Podes subir PDF, Microsoft Word.
+  .separator
+  .form__heading
+    h3 Queremos conocerte mejor
+  div(class="form__group")
+    label(for="sobreMi", class="form__label") Sobre mí
+    textarea#sobreMi(class="form__input form__input__textarea")= `${cv.sobreMi}`
+  .separator
+  div(class="form__group form__group--checkbox form__group--ingles")
+    label(for="ingles", class="form__label form__label--ingles") Inglés
+    - if (cv.ingles)
+      input#ingles(type="checkbox", class="form__input form__input--ingles", name="ingles", checked="")
+    - else
+      input#ingles(type="checkbox", class="form__input form__input--ingles", name="ingles")
+  - if (cv.ingles && cv.nivelDeIngles)
+    #nivelDeInglesGroup(class="form__group")
+      .form__group-label-container
+        label(for="nivelDeIngles", class="form__label") Nivel de inglés
+        span.required *
+      .form__radios-container
+        .radio-group
+          label(for="nivelDeInglesBasico") Basico
+          - if (cv.nivelDeIngles === 'basico')
+            input#nivelDeInglesBasico(type="radio", class="form__input", name="nivelDeIngles", value="basico", required, checked="")
+          - else
+            input#nivelDeInglesBasico(type="radio", class="form__input", name="nivelDeIngles", value="basico", required)
+        .radio-group
+          label(for="nivelDeInglesIntermedio") Intermedio
+          - if (cv.nivelDeIngles === 'intermedio')
+            input#nivelDeInglesIntermedio(type="radio", class="form__input", name="nivelDeIngles", value="intermedio", checked="")
+          - else
+            input#nivelDeInglesIntermedio(type="radio", class="form__input", name="nivelDeIngles", value="intermedio")
+        .radio-group
+          label(for="nivelDeInglesAvanzado") Avanzado
+          - if (cv.nivelDeIngles === 'avanzado')
+            input#nivelDeInglesAvanzado(type="radio", class="form__input", name="nivelDeIngles", value="avanzado", checked="")
+          - else
+            input#nivelDeInglesAvanzado(type="radio", class="form__input", name="nivelDeIngles", value="avanzado")
+  .separator
+  .form__heading
+    h3 Programas que sabes usar
+
+
+  each userPrograma in cv.programas
+    - counterPrograma++
+    +programa(userPrograma.programa, userPrograma.nivel, counterPrograma)
+  
+  #actionsProgramaContainer.actions-container
+    button#addPrograma.btn.btn-primary.btn-img-container
+      span Añadir programa
+      img(src="/img/icons/ui/plus-bold.svg")
+
+  .separator
+  .form__heading
+    h3 Contanos en qué otras áreas tenes experiencia
+    p.text-secondary.text-secondary--experiencia (ej. Desarrollo web, Diseño 3d, etc)
+
+  each userExperiencia in cv.experiencias
+    - counterExperiencia++
+    +experiencia(userExperiencia.experiencia, userExperiencia.nivel, counterExperiencia)
+
+  #actionsExperienciaContainer.actions-container
+        button#addExperiencia.btn.btn-primary.btn-img-container
+          | Añadir experiencia
+          img(src="/img/icons/ui/plus-bold.svg")
+
+  .separator
+  .form__3-cols-container
+    div(class="form__group")
+      label(for="tarifaPorHora", class="form__label") Tarifa por hora
+      input#tarifaPorHora(type="text", class="form__input", name="tarifaPorHora", value=`${cv.tarifaPorHora}`)
+    div(class="form__group")
+      .form__group-label-container
+        label(for="horasDiarias", class="form__label") Horas diarias disponibles
+        span.required *
+      input#horasDiarias(type="number", class="form__input", name="horasDiarias", value=`${cv.horasDisponibles.diarias}`, required)
+    div(class="form__group")
+      .form__group-label-container
+        label(for="horasSemanales", class="form__label") Horas semanales disponibles
+        span.required *
+      input#horasSemanales(type="number", class="form__input", name="horasSemanales", value=`${cv.horasDisponibles.semanales}`, required)
+
+  div(class="form__group")
+    label(for="sistemaDeCobro", class="form__label form__label--sistema-de-cobro") Sistema de cobro
+    .form__checkbox-container
+      .form__group--checkbox.form__sistema-de-cobro
+        label(for="paypal") Paypal
+        - if(cv.sistemaDeCobro.paypal)
+          input#paypal(type="checkbox", value="paypal", name="sistemaDeCobroPaypal", checked="")
+        - else
+          input#paypal(type="checkbox", value="paypal", name="sistemaDeCobroPaypal")
+      .form__group--checkbox.form__sistema-de-cobro
+        label(for="skrill") Western Union
+        - if (cv.sistemaDeCobro.westernUnion)
+          input#westernUnion(type="checkbox", value="westernUnion", name="sistemaDeCobroWesternUnion", checked="")
+        - else 
+          input#westernUnion(type="checkbox", value="westernUnion", name="sistemaDeCobroWesternUnion")
+      .form__group--checkbox.form__sistema-de-cobro
+        label(for="transferencia") Transferencia
+        - if (cv.sistemaDeCobro.transferencia)
+          input#transferencia(type="checkbox", value="transferencia", name="sistemaDeCobroTransferencia", checked="")
+        - else
+          input#transferencia(type="checkbox", value="transferencia", name="sistemaDeCobro")
+  div(class="form__group")
+    label(for="otroSistemaDeCobro", class="form__label") Otro sistema de cobro
+    input#otroSistemaDeCobro(type="text", class="form__input", name="otroSistemaDeCobro")
+  .separator
+  .form__heading
+    h3 Tus redes sociales
+  .form__3-cols-container
+    div(class="form__group")
+      label(for="facebook", class="form__label") Facebook
+      input#facebook(type="text", class="form__input", name="facebook", value=`${cv.redes.facebook}`, placeholder="https://www.facebook.com/...")
+    div(class="form__group")
+      label(for="instagram", class="form__label") Instagram
+      input#instagram(type="text", class="form__input", name="instagram", value=`${cv.redes.instagram}`, placeholder="https://www.instagram.com/...")
+    div(class="form__group")
+      label(for="linkedin", class="form__label") Linkedin
+      input#linkedin(type="text", class="form__input", name="linkedin", value=`${cv.redes.linkedin}`, placeholder="https://www.linkedin.com/...")
+  .form__3-cols-container
+    div(class="form__group")
+      label(for="behance", class="form__label") Behance
+      input#behance(type="text", class="form__input", name="behance", value=`${cv.redes.behance}`, placeholder="https://www.behance.com/...")
+    div(class="form__group")
+      label(for="youtube", class="form__label") Youtube
+      input#youtube(type="text", class="form__input", name="youtube", value=`${cv.redes.youtube}`, placeholder="https://www.youtube.com/...")
+    div(class="form__group")
+      label(for="vimeo", class="form__label") Vimeo
+      input#vimeo(type="text", class="form__input", name="vimeo", value=`${cv.redes.vimeo}`, placeholder="https://www.vimeo.com/...")
+  .separator
+  div(class="form__group")
+    label(for="portafolioEnLinea", class="form__label") Portafolio en línea
+    input#portafolioEnLinea(type="text", class="form__input", name="portafolioEnLinea", value=`${cv.portafolioEnLinea}`)
+  .form__heading 
+    p.text-primary ¿No tenés portafolio en línea? A continuación podés subir tu portafolio.
+  div(class="form__group")
+    each portafolio in cv.portafolio
+      .form__file-container
+        img(src="/img/icons/ui/file.svg", class="icon-file")
+        span= portafolio.split('-')[3]
+    label#portafolioBtn(for="portafolio", class="btn btn-primary btn-img-container")
+      span CARGAR PORTAFOLIO
+      img(src="/img/icons/ui/upload-simple-bold.svg")
+    input#portafolio(type="file", name="portafolio" multiple)
+  .form__heading
+    p.text-secondary Tamaño máximo 10MB
+    p.text-secondary Podés subir imágenes, videos, documentos de tu portafolio (jpg, png, gif, pdf, doc word, mp4, PowerPoint, etc.)
+  .separator
+  button#submitBtn.btn.btn-primary.btn-img-container(type="submit")
+    span Actualizar
+    img(src="/img/icons/ui/arrow-right-bold.svg")
+include components/hotjar

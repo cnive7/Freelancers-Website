@@ -1,0 +1,87 @@
+extends base
+
+block content
+  link(rel="stylesheet", href="/css/projects.css")
+  link(rel="stylesheet", href="/css/adminActions.css")
+  section.section-projects.section-container
+    header
+      h2.heading-secondary Post de trabajos
+      a.btn.btn-primary.btn-img-container(href="/new-project")
+        span NUEVO POST
+        img(src="/img/icons/ui/plus-bold.svg")
+    .projects
+      each project in projects
+        - const locationsArr = Object.entries(project.location).filter(el => {if (el[1] === true) {return el[0]} else{return false}});
+        - const countriesNames = locationsArr.map(el => {return el[0]});
+        .project#project(data-id=project._id)
+          .project__header
+            h3.project__category= project.category
+            .project__price-container
+              if project.rates.projectRate.usd > 0
+                .project__price-project= `$USD${project.rates.projectRate.usd}`
+              if project.rates.hourlyRate.usd > 0
+                .project__price-hourly= `$USD${project.rates.hourlyRate.usd}/hr`
+          .project__content
+            h1.project__title= project.title
+            .project__summary-container(style=`${countriesNames.length > 8 ? 'flex-direction: column' : ''}`)
+              if countriesNames.length > 0
+                .project__summary
+                    img(src="/img/icons/ui/admin/projects/map-pin.svg", alt="location icon")
+                    span
+                      - countriesNames.shift()
+                      | #{countriesNames.map(el =>{ return el[0].toUpperCase() + el.slice(1)}).map(el => {if (el === 'CostaRica' ){return 'Costa Rica'}if(el === 'ElSalvador'){return 'El Salvador'} return el}).join(" - ")}
+              .project__summary
+                img(src="/img/icons/ui/admin/projects/map-pin.svg", alt="location icon")
+                span Duración: 
+                  if project.duration === '3-6months'
+                    | 3 a 6 meses
+                  if project.duration === '+6months'
+                    | más de 6 meses
+                  if project.duration === '1-3months'
+                    | 1 a 3 meses
+                  if project.duration === '-1month'
+                    | menos de 1 mes
+              .project__summary
+                img(src="/img/icons/ui/admin/projects/map-pin.svg", alt="location icon")
+                span Experiencia: 
+                  if project.experience === 'intermediate'
+                    | Intermedio
+                  if project.experience === 'novice'
+                    | Principiante
+                  if project.experience === 'expert'
+                    | Experto
+            p.project__description= project.description
+            .project__details(style="margin-bottom: 2.4rem")
+              b Tamaño del proyecto: 
+              if project.scope === 'big'
+                |  Grande
+              if project.scope === 'small'
+                |  Chico
+              if project.scope === 'medium'
+                |  Mediano
+            .project__details(style=`${project.skills.length > 0 ? 'margin-bottom: 2.4rem' : ''}`)
+              b Oportunidad para contratar: 
+              if project.hireOpportunity === true 
+                | Sí
+              else
+                | No 
+            if project.skills.length > 0
+              .project__details(style=`${project.files.length > 0 ? 'margin-bottom: 2.4rem' : ''}`)
+                b Habilidades: 
+                | #{project.skills.join(" - ")}
+            if project.files.length > 0
+              .project__details
+                b Archivos:
+              .project__files
+                each file in project.files
+                  a.freelancer__files-container(href=`/files/projects/files/${file}`, target="_blank")
+                      img.icon-file(src="/img/icons/ui/file.svg")
+                      span= file.split('-')[3]
+          .project__footer
+            button#viewProjectFreelancersBtn.btn.btn-primary
+              span VER FREELANCERS
+            .project__actions
+              button#deleteProjectBtn.btn.btn-primary.btn-img(style="margin-right: 0.8rem")
+                img(src="/img/icons/ui/admin/pencil--white.svg")
+              button#deleteProjectBtn.btn.btn-primary.btn-img
+                img(src="/img/icons/ui/trash-bold.svg")

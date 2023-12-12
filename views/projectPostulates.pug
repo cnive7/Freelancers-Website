@@ -1,0 +1,59 @@
+extends base
+
+block content
+  link(rel="stylesheet", href="/css/freelancers.css")
+  section.section-freelancers.section-container
+    header
+      h2.heading-secondary Freelancers postulados en #{projectTitle}
+      if project.length === 0
+        h2.heading-secondary No hay freelancers postulados en #{projectTitle}!
+    .freelancers
+      .freelancers__container
+        each freelancer in project
+          .freelancer
+            .freelancer__img-box
+              if freelancer.cv.rating
+                if freelancer.cv.rating !== 0
+                  .freelancer__rating-container
+                    .freelancer__rating= freelancer.cv.rating
+                    img(src="/img/icons/ui/admin/star-bold.svg")
+              if freelancer.cv.tarifaPorHora
+                .freelancer__price= freelancer.cv.tarifaPorHora
+              a(href=`/freelancers/${freelancer.id._id}/${projectId}/${freelancer._id}`, class="freelancer__link")
+                img(src=`/img/users/${freelancer.id.photo}`, class="freelancer__photo")
+            .freelancer__text-box
+              .freelancer__name= `${freelancer.id.name} ${freelancer.id.lastName}`
+              .freelancer__work= `${freelancer.cv.profesion.capitalize()}`
+              .freelancer__info-box
+                .icon-text-container
+                  img(src="/img/icons/ui/admin/map-pin.svg")
+                  .freelancer__location= `${freelancer.cv.ciudad.capitalize()}, ${freelancer.cv.provincia.capitalize()}, ${freelancer.cv.pais.capitalize()}`
+                .icon-text-container
+                  img(src="/img/icons/ui/admin/clock.svg")
+                  .freelancer__availability= `${freelancer.cv.horasDisponibles.diarias} horas al día`
+                if freelancer.cv.telefono
+                  a.freelancer__info-link(href=`tel:${freelancer.cv.telefono}`)
+                    .icon-text-container.icon-text-container--email
+                      img(src="/img/icons/ui/admin/phone.svg")
+                      .freelancer__contacto= freelancer.cv.telefono
+                else
+                  a.freelancer__info-link(href=`mailto:${freelancer.id.email}`)
+                    .icon-text-container.icon-text-container--email
+                      img(src="/img/icons/ui/admin/envelope-simple.svg")
+                      .freelancer__contacto= freelancer.id.email
+              .freelancer__social
+                if freelancer.cv.portafolioEnLinea
+                  a(href=`${freelancer.cv.portafolioEnLinea}`, target="_blank", class="freelancer__social-link")
+                    img.freelancer__social-icon(src="/img/icons/ui/admin/social/globe-hemisphere-west-bold--white.svg")
+                if freelancer.cv.redes.instagram
+                  a(href=`${freelancer.cv.redes.instagram}`, target="_blank",  class="freelancer__social-link")
+                    img.freelancer__social-icon(src="/img/icons/ui/admin/social/instagram-logo-bold--white.svg")
+                if freelancer.cv.redes.facebook
+                  a(href=`${freelancer.cv.redes.facebook}`, target="_blank", class="freelancer__social-link")
+                    img.freelancer__social-icon(src="/img/icons/ui/admin/social/facebook-logo-bold--white.svg")
+                if freelancer.cv.redes.linkedin
+                  a(href=`${freelancer.cv.redes.linkedin}`, target="_blank", class="freelancer__social-link")
+                    img.freelancer__social-icon(src="/img/icons/ui/admin/social/linkedin-logo-bold--white.svg")
+                if freelancer.cv.redes.behance
+                  a(href=`${freelancer.cv.redes.behance}`, target="_blank", class="freelancer__social-link")
+                    img.freelancer__social-icon(src="/img/icons/ui/admin/social/behance-logo-bold--white.svg")

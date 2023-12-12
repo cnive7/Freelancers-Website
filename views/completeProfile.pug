@@ -1,0 +1,10 @@
+extends base
+
+block content
+  if cv
+    <script>location.assign("/mi-cuenta");</script>
+  section.section-cv.section-container
+    header
+      h2.heading-secondary
+        | Completa tu perfil para que Amerilancers te pueda contactar si hay una oportunidad para vos!
+      include cvCreateForm

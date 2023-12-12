@@ -1,0 +1,40 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description", content="Amerilancers es una comunidad de talentos, de expertos en creatividad, medios, estrategia y tecnología, y trabajamos en equipos flexibles para apoyar empresas alrededor del mundo.")
+    meta(name="robots", content="index,follow")
+    title Amerilancers &mdash; #{title}
+    // Styles
+    link(rel="stylesheet", href="/css/general.css")
+    if home
+      link(rel="stylesheet", href="/css/style.css")
+      link(rel="stylesheet", href="/css/swiper-bundle.min.css")
+      
+    if !home
+      link(rel="stylesheet", href="/css/sites.css")
+    link(rel="stylesheet", href="/css/form.css")
+    link(rel="stylesheet", href="/css/safari-fix.css")
+    // 
+    // Fonts
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap", rel="stylesheet")
+    // 
+    // Favicon
+    link(rel="icon", href="/img/favicon150.png", sizes="32x32")
+    // 
+  body
+    - if (typeof 'a'.capitalize !== "function") Object.defineProperty(String.prototype, 'capitalize', { value: function() { return this.charAt(0).toUpperCase() + this.slice(1);},enumerable:false});
+    if !home
+      include _header
+    if !home && user
+      include components/navActions
+    block content
+    include _footer
+    // Scripts
+    include components/analitics.pug
+    script(defer, src="/js/bundle.js")
+    //- script(src="https://unpkg.com/phosphor-icons")

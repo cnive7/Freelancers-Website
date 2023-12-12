@@ -1,0 +1,42 @@
+//- icon color #f5939c
+link(rel="stylesheet", href="/css/navActions.css")
+nav.nav--actions
+  ul.nav--actions-list
+    if user
+      if user.role === 'freelancer'
+        li
+          a.nav--actions-link(href="/mi-cuenta", class=`${page === 'mi-cuenta' || page === 'completar-perfil' ? 'active' : ''}`)
+            span Mi perfil
+        li
+          a.nav--actions-link(href="/contacto", class=`${page === 'contacto' ? 'active' : ''}`)
+            span Mensajes
+            if user.hasUnreadMessages && page !== 'contacto'
+              .unread
+                  img(src="/img/icons/ui/number-circle-one-bold.svg")
+        li
+          a.nav--actions-link(href="/proyectos", class=`${page === 'proyectos' ? 'active' : ''}`)
+            span Proyectos
+    if user
+      if user.role === 'admin'
+        li
+          a.nav--actions-link(href="/freelancers", class=`${page === 'freelancers' ? 'active' : ''}`)
+            img.nav-icon(src=`/img/icons/ui/admin/nav/users-bold${page === 'freelancers' ? '-active' : ''}.svg`)
+        li
+          a.nav--actions-link(href="/freelancers-uncompleted", class=`${page === 'freelancersUncompleted' ? 'active' : ''}`)
+            img.nav-icon(src=`/img/icons/ui/admin/nav/user-list-bold${page === 'freelancersUncompleted' ? '-active' : ''}.svg`)
+        li
+          a.nav--actions-link(href="/groups", class=`${page === 'groups' ? 'active' : ''}`)
+            img.nav-icon(src=`/img/icons/ui/admin/nav/users-three-bold${page === 'groups' ? '-active' : ''}.svg`)
+        li
+          a.nav--actions-link(href="/messages", class=`${page === 'messages' ? 'active' : ''} `)
+            div.span-messages
+              img.nav-icon(src=`/img/icons/ui/admin/nav/chats-bold${page === 'messages' ? '-active' : ''}.svg`)
+              if user.hasUnreadMessages && page !== 'messages'
+                .unread
+                  img(src="/img/icons/ui/number-circle-one-bold.svg")
+        li
+          a.nav--actions-link(href="/landing", class=`${page === 'landingConfig' ? 'active' : ''}`)
+            img.nav-icon(src=`/img/icons/ui/admin/nav/newspaper-bold${page === 'landingConfig' ? '-active' : ''}.svg`)
+        li
+          a.nav--actions-link(href="/projects", class=`${page === 'projects' ? 'active' : ''}`)
+            img.nav-icon(src=`/img/icons/ui/admin/nav/briefcase-bold${page === 'projects' ? '-active' : ''}.svg`)
