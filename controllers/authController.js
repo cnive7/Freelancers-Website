@@ -53,7 +53,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   await new Email(newUser, emailURL).sendWelcome();
   await new Email(
     {
-      email: "hola@amerilancers.com",
+      email: "hello@example.com",
       name: "",
     },
     ""
